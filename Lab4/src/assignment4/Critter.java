@@ -19,12 +19,11 @@ import java.util.List;
  * no new public, protected or default-package code or data can be added to Critter
  */
 
-//test test
 public abstract class Critter {
 	private static String myPackage;
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
-
+	
 	// Gets the package name.  This assumes that Critter and its subclasses are all in the same package.
 	static {
 		myPackage = Critter.class.getPackage().toString().split(" ")[1];
@@ -48,12 +47,68 @@ public abstract class Critter {
 	
 	private int x_coord;
 	private int y_coord;
+	private boolean hasWalked;
 	
 	protected final void walk(int direction) {
+		if(!this.hasWalked){
+		switch(direction){
+			case 0:
+				this.x_coord = (this.x_coord + 1) % Params.world_width;
+				break;
+			case 1:
+				this.x_coord = (this.x_coord + 1) % Params.world_width;
+				this.y_coord = this.y_coord--;
+				if(this.y_coord < 0){
+					this.y_coord += Params.world_height;
+				}
+				break;
+			case 2:
+				this.y_coord = this.y_coord--;
+				if(this.y_coord < 0){
+					this.y_coord += Params.world_height;
+				}
+				break;
+			case 3:
+				this.x_coord = this.x_coord--;
+				if(this.x_coord < 0){
+					this.x_coord += Params.world_width;
+				}
+				this.y_coord = this.y_coord--;
+				if(this.y_coord < 0){
+					this.y_coord += Params.world_height;
+				}
+				break;
+			case 4:
+				this.x_coord = this.x_coord--;
+				if(this.x_coord < 0){
+					this.x_coord += Params.world_width;
+				}
+				break;
+			case 5:
+				this.x_coord = this.x_coord--;
+				if(this.x_coord < 0){
+					this.x_coord += Params.world_width;
+				}
+				this.y_coord = (this.y_coord + 1) % Params.world_height;
+				break;
+			case 6:
+				this.y_coord = (this.y_coord + 1) % Params.world_height;
+				break;
+			case 7:
+				this.x_coord = (this.x_coord + 1) % Params.world_width;
+				this.y_coord = (this.y_coord + 1) % Params.world_height;
+				break;
+			}
+			this.energy -= Params.walk_energy_cost;
+			this.hasWalked = true;
+		}
 	}
 	
 	protected final void run(int direction) {
-		
+//		this.energy = this.energy + (2 * Params.walk_energy_cost);
+//		this.walk(direction);
+//		this.walk(direction);
+//		this.energy -= Params.run_energy_cost;
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
@@ -89,6 +144,7 @@ public abstract class Critter {
 		if (!(critter instanceof Critter)){
 			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
 		}
+		population.add((Critter)critter);
 		((Critter)critter).energy = Params.start_energy;
 		((Critter)critter).x_coord = Critter.getRandomInt(Params.world_width);
 		((Critter)critter).y_coord = Critter.getRandomInt(Params.world_height);
@@ -186,10 +242,48 @@ public abstract class Critter {
 	 * Clear the world of all critters, dead and alive
 	 */
 	public static void clearWorld() {
+		population.clear();
 	}
 	
 	public static void worldTimeStep() {
+		for(Critter crt : population){
+			crt.hasWalked = false;
+			crt.doTimeStep();
+		}
 	}
 	
-	public static void displayWorld() {}
+	public static void displayWorld() {
+		//top of box
+		boolean exists;
+		int loc = 0;
+		System.out.print("+");
+		for(int i = 0; i < Params.world_width; i++){
+			System.out.print("-");
+		}
+		System.out.println("+");
+		//middle of box
+		for(int y = 0; y < Params.world_height; y++){
+			System.out.print("|");
+			for(int x = 0; x < Params.world_width; x++){
+				exists = false;
+				for(int i = 0; i < population.size(); i++){
+					if((population.get(i).x_coord == x) && (population.get(i).y_coord == y)){
+						exists = true;
+						loc = i;
+						break;
+					}
+				}
+				if(exists){
+					System.out.print(population.get(loc).toString());
+				}else System.out.print(" ");
+			}
+			System.out.println("|");
+		}
+		//bottom of box
+		System.out.print("+");
+		for(int i = 0; i < Params.world_width; i++){
+			System.out.print("-");
+		}
+		System.out.println("+");
+	}
 }
