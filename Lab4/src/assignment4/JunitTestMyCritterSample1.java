@@ -38,13 +38,25 @@ public class JunitTestMyCritterSample1 {
 	 * @throws InvalidCritterException
 	 */
 	public void testWalk() throws Exception {
-		Critter.makeCritter("Main");
+		Critter.makeCritter("MyCritter1");
 		MyCritter1 m1 = (MyCritter1) Critter.TestCritter.getPopulation().get(0);
 		int x1a = m1.getX_coord(); int  y1a = m1.getY_coord();
 		m1.doTimeStep();
 		int x1b = m1.getX_coord(); int  y1b = m1.getY_coord();
 		assertTrue((x1b - x1a == 1) || (x1b + Params.world_width - x1a) == 1);
 		assertTrue(Math.abs(y1b - y1a) == 0);
+	}
+	
+	@Test
+	/**
+	 * Make sure popuation list and display world works
+	 */
+	public void testDisplayWorld() throws InstantiationException, IllegalAccessException, InvalidCritterException{
+		Critter.makeCritter("Craig");
+		Critter.makeCritter("Craig");
+		Critter.makeCritter("Craig");
+		Critter.makeCritter("Craig");
+		Critter.displayWorld();
 	}
 	
 	@Test

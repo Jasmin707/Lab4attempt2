@@ -11,6 +11,7 @@
  * Fall 2016
  */
 package assignment4; // cannot be in default package
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
@@ -68,7 +69,26 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-        
+        ArrayList<String> inputArray = new ArrayList<>();
+        String input;
+		Scanner fromInput;
+		while((input = kb.nextLine()) != null) {
+			inputArray.clear();
+			fromInput = new Scanner(input);
+			while (fromInput.hasNext()) {
+				String temp = fromInput.next();
+				inputArray.add(temp);
+			}
+			if (inputArray.get(0).equals("quit")){
+				System.exit(0);
+			}
+			if (inputArray.get(0).equals("show")){
+				Critter.displayWorld();
+			}
+			if (inputArray.get(0).equals("step")){
+				Critter.worldTimeStep();
+			}
+		}
         System.out.println("GLHF");
         
         /* Write your code above */
