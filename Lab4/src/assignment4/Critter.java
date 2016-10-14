@@ -48,6 +48,7 @@ public abstract class Critter {
 	private int x_coord;
 	private int y_coord;
 	private boolean hasWalked;
+	private boolean hasRan;
 	
 	protected final void walk(int direction) {
 		if(!this.hasWalked){
@@ -100,18 +101,122 @@ public abstract class Critter {
 				break;
 			}
 			this.hasWalked = true;
+			this.hasRan = true;
 		}
 		this.energy -= Params.walk_energy_cost;
 	}
 	
 	protected final void run(int direction) {
-//		this.energy = this.energy + (2 * Params.walk_energy_cost);
-//		this.walk(direction);
-//		this.walk(direction);
-//		this.energy -= Params.run_energy_cost;
+		if(!this.hasRan){
+			switch(direction){
+				case 0:
+					this.x_coord = (this.x_coord + 2) % Params.world_width;
+					break;
+				case 1:
+					this.x_coord = (this.x_coord + 2) % Params.world_width;
+					this.y_coord -= 2;
+					if(this.y_coord < 0){
+						this.y_coord += Params.world_height;
+					}
+					break;
+				case 2:
+					this.y_coord -= 2;
+					if(this.y_coord < 0){
+						this.y_coord += Params.world_height;
+					}
+					break;
+				case 3:
+					this.x_coord -= 2;
+					if(this.x_coord < 0){
+						this.x_coord += Params.world_width;
+					}
+					this.y_coord -= 2;
+					if(this.y_coord < 0){
+						this.y_coord += Params.world_height;
+					}
+					break;
+				case 4:
+					this.x_coord -= 2;
+					if(this.x_coord < 0){
+						this.x_coord += Params.world_width;
+					}
+					break;
+				case 5:
+					this.x_coord -= 2;
+					if(this.x_coord < 0){
+						this.x_coord += Params.world_width;
+					}
+					this.y_coord = (this.y_coord + 2) % Params.world_height;
+					break;
+				case 6:
+					this.y_coord = (this.y_coord + 2) % Params.world_height;
+					break;
+				case 7:
+					this.x_coord = (this.x_coord + 2) % Params.world_width;
+					this.y_coord = (this.y_coord + 2) % Params.world_height;
+					break;
+				}
+				this.hasWalked = true;
+				this.hasRan = true;
+			}
+			this.energy -= Params.run_energy_cost;
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
+		if (this.energy < Params.min_reproduce_energy){
+			return;
+		}
+		offspring.energy = this.energy/2;
+		this.energy = (this.energy % 2) + (this.energy / 2);
+		switch(direction){
+			case 0:
+				offspring.x_coord = (this.x_coord + 1) % Params.world_width;
+				break;
+			case 1:
+				offspring.x_coord = (this.x_coord + 1) % Params.world_width;
+				offspring.y_coord = this.y_coord - 1;
+				if(offspring.y_coord < 0){
+					offspring.y_coord += Params.world_height;
+				}
+				break;
+			case 2:
+				offspring.y_coord = this.y_coord - 1;
+				if(offspring.y_coord < 0){
+					offspring.y_coord += Params.world_height;
+				}
+				break;
+			case 3:
+				offspring.x_coord = this.x_coord - 1;
+				if(offspring.x_coord < 0){
+					offspring.x_coord += Params.world_width;
+				}
+				offspring.y_coord = this.y_coord - 1;
+				if(offspring.y_coord < 0){
+					offspring.y_coord += Params.world_height;
+				}
+				break;
+			case 4:
+				offspring.x_coord = this.x_coord - 1;
+				if(offspring.x_coord < 0){
+					offspring.x_coord += Params.world_width;
+				}
+				break;
+			case 5:
+				offspring.x_coord = this.x_coord - 1;
+				if(offspring.x_coord < 0){
+					offspring.x_coord += Params.world_width;
+				}
+				offspring.y_coord = (this.y_coord + 1) % Params.world_height;
+				break;
+			case 6:
+				offspring.y_coord = (this.y_coord + 1) % Params.world_height;
+				break;
+			case 7:
+				offspring.x_coord = (this.x_coord + 1) % Params.world_width;
+				offspring.y_coord = (this.y_coord + 1) % Params.world_height;
+				break;
+		}
+		babies.add(offspring);
 	}
 
 	public abstract void doTimeStep();
@@ -248,8 +353,13 @@ public abstract class Critter {
 	public static void worldTimeStep() {
 		for(Critter crt : population){
 			crt.hasWalked = false;
+			crt.hasRan = false;
 			crt.doTimeStep();
 		}
+		for(Critter crt : babies){
+			population.add(crt);
+		}
+		babies.clear();
 	}
 	
 	public static void displayWorld() {

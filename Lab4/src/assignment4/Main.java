@@ -41,7 +41,7 @@ public class Main {
      * @param args args can be empty.  If not empty, provide two parameters -- the first is a file name, 
      * and the second is test (for test output, where all output to be directed to a String), or nothing.
      */
-    public static void main(String[] args) { 
+    public static void main(String[] args) throws Exception{ 
         if (args.length != 0) {
             try {
                 inputFile = args[0];
@@ -79,14 +79,42 @@ public class Main {
 				String temp = fromInput.next();
 				inputArray.add(temp);
 			}
+			fromInput.close();
 			if (inputArray.get(0).equals("quit")){
+				if (!inputArray.get(1).equals(null)){
+					//do something
+				}
 				System.exit(0);
 			}
 			if (inputArray.get(0).equals("show")){
+				if (!inputArray.get(1).equals(null)){
+					//do something
+				}
 				Critter.displayWorld();
+				
 			}
 			if (inputArray.get(0).equals("step")){
-				Critter.worldTimeStep();
+				if (inputArray.get(1).equals(null)){
+					Critter.worldTimeStep();
+				}else{
+					if (!inputArray.get(2).equals(null)){
+						//do something
+					}
+					Integer rounds = Integer.parseInt(inputArray.get(1));
+					if(rounds < 0){
+						//do something
+					}
+					for(Integer i  = new Integer(0); i < rounds; i++){
+						Critter.worldTimeStep();
+					}
+				}
+			}
+			if (inputArray.get(0).equals("seed")){
+				if (!inputArray.get(2).equals(null)){
+					//do something
+				}
+				Integer seed = Integer.parseInt(inputArray.get(1));
+				Critter.setSeed((long) seed);
 			}
 		}
         System.out.println("GLHF");
