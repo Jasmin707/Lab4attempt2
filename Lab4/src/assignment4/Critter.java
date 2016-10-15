@@ -365,20 +365,41 @@ public abstract class Critter {
 		fights = findEncounters();
 		for(Encounters current : fights){
 			ArrayList<Critter> fighters = current.getFighters();
-			for (Critter crt : fighters) {
+			//for (Critter crt : fighters) {
+			boolean end = false;
+			while(!end){
 				if (fighters.size() < 2) {
-					break;
+					end = true;
 				}
-				boolean willAFight = fighters.get(0).fight(fighters.get(1).toString());
-				if(!willAFight){
-					fighters.get(0).run(Critter.getRandomInt(8));
-				}
-				boolean willBFight = fighters.get(1).fight(fighters.get(0).toString());
-				if(!willBFight){
-					fighters.get(0).run(Critter.getRandomInt(8));
-				}
-				if(willAFight && willBFight){
-					
+				Critter a = fighters.get(0);
+				Critter b = fighters.get(1);
+				boolean willAFight = a.fight(b.toString());
+				boolean willBFight = b.fight(a.toString());
+				if ((a.x_coord == b.x_coord) && (a.y_coord == b.y_coord)){
+					int diceA;
+					int diceB;
+					if(willAFight){
+						diceA = Critter.getRandomInt(a.energy + 1);
+					}
+					else{
+						diceA = 0;
+					}
+					if(willBFight){
+						diceB = Critter.getRandomInt(b.energy + 1);
+					}
+					else{
+						diceB = 0;
+					}
+					if(diceA < diceB){
+						//B wins
+						b.energy += (a.energy/2);
+						population.remove(a); //is a right because its a reference to fighters.get(0)?
+					}
+					else{
+						//A wins (rolled higher or even)
+						a.energy += (b.energy/2);
+						population.remove(b);
+					}
 				}
 			}
 		}
