@@ -35,6 +35,7 @@ public class Main {
     static {
         myPackage = Critter.class.getPackage().toString().split(" ")[1];
     }
+    
 
     /**
      * Main method.
@@ -42,6 +43,12 @@ public class Main {
      * and the second is test (for test output, where all output to be directed to a String), or nothing.
      */
     public static void main(String[] args) throws Exception{ 
+    	for(int i = 0; i < 5; i++){
+    		Critter.makeCritter("Craig");
+    	}
+    	for(int i = 0; i < 10; i++){
+    		Critter.makeCritter("Algae");
+    	}
         if (args.length != 0) {
             try {
                 inputFile = args[0];
@@ -81,23 +88,23 @@ public class Main {
 			}
 			fromInput.close();
 			if (inputArray.get(0).equals("quit")){
-				if (!inputArray.get(1).equals(null)){
+				if (inputArray.size() != 1){
 					//do something
 				}
 				System.exit(0);
 			}
 			if (inputArray.get(0).equals("show")){
-				if (!inputArray.get(1).equals(null)){
+				if (inputArray.size() != 1){
 					//do something
 				}
 				Critter.displayWorld();
 				
 			}
 			if (inputArray.get(0).equals("step")){
-				if (inputArray.get(1).equals(null)){
+				if (inputArray.size() == 1){
 					Critter.worldTimeStep();
 				}else{
-					if (!inputArray.get(2).equals(null)){
+					if (inputArray.size() != 2){
 						//do something
 					}
 					Integer rounds = Integer.parseInt(inputArray.get(1));
@@ -110,7 +117,7 @@ public class Main {
 				}
 			}
 			if (inputArray.get(0).equals("seed")){
-				if (!inputArray.get(2).equals(null)){
+				if (inputArray.size() != 2){
 					//do something
 				}
 				Integer seed = Integer.parseInt(inputArray.get(1));

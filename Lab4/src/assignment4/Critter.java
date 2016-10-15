@@ -12,6 +12,7 @@
  */
 package assignment4;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -350,16 +351,46 @@ public abstract class Critter {
 		population.clear();
 	}
 	
-	public static void worldTimeStep() {
+	public static void worldTimeStep() throws InstantiationException, IllegalAccessException, InvalidCritterException {
 		for(Critter crt : population){
 			crt.hasWalked = false;
 			crt.hasRan = false;
 			crt.doTimeStep();
+			if(crt.energy <= 0){
+				population.remove(crt);
+			}
 		}
+		//encounters?
+		ArrayList<Encounters> fights = new ArrayList<Encounters>();
+		fights = findEncounters();
+		for(Encounters current : fights){
+			ArrayList<Critter> fighters = current.getFighters();
+			for (Critter crt : fighters) {
+				if (fighters.size() < 2) {
+					break;
+				}
+				boolean willAFight = fighters.get(0).fight(fighters.get(1).toString());
+				if(!willAFight){
+					fighters.get(0).run(Critter.getRandomInt(8));
+				}
+				boolean willBFight = fighters.get(1).fight(fighters.get(0).toString());
+				if(!willBFight){
+					fighters.get(0).run(Critter.getRandomInt(8));
+				}
+				if(willAFight && willBFight){
+					
+				}
+			}
+		}
+		
 		for(Critter crt : babies){
 			population.add(crt);
 		}
 		babies.clear();
+		for(int i = 0; i < Params.refresh_algae_count; i++){
+			Critter.makeCritter("Algae");
+			
+		}
 	}
 	
 	public static void displayWorld() {
@@ -395,5 +426,24 @@ public abstract class Critter {
 			System.out.print("-");
 		}
 		System.out.println("+");
+	}
+	
+	private static ArrayList<Encounters> findEncounters(){
+		ArrayList<Encounters> encounters = new ArrayList<Encounters>();
+		for(int i = 0; i < Params.world_width; i++){
+			for(int j = 0; j < Params.world_height; j++){
+				ArrayList<Critter> crts = new ArrayList<Critter>();
+				for(Critter crt : population){
+					if((crt.x_coord == i) && (crt.y_coord == j)){
+						crts.add(crt);
+					}
+				}
+				if(crts.size() > 1){
+					Encounters current = new Encounters(i, j, crts);
+					encounters.add(current);
+				}
+			}
+		}
+		return encounters;
 	}
 }
