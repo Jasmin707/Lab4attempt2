@@ -84,78 +84,84 @@ public class Main {
 			fromInput.close();
 			if (inputArray.get(0).equals("quit")){
 				if (inputArray.size() != 1){
-					//do something
+					System.out.println("error processing: " + input);
+				}else{
+					System.exit(0);
 				}
-				System.exit(0);
 			}
 			if (inputArray.get(0).equals("show")){
 				if (inputArray.size() != 1){
-					//do something
+					System.out.println("error processing: " + input);
+				}else{
+					Critter.displayWorld();
 				}
-				Critter.displayWorld();
-				
 			}
 			if (inputArray.get(0).equals("step")){
 				if (inputArray.size() == 1){
 					Critter.worldTimeStep();
 				}else{
 					if (inputArray.size() != 2){
-						//do something
-					}
-					Integer rounds = Integer.parseInt(inputArray.get(1));
-					if(rounds < 0){
-						//do something
-					}
-					for(Integer i  = new Integer(0); i < rounds; i++){
-						Critter.worldTimeStep();
+						System.out.println("error processing: " + input);
+					}else{
+						Integer rounds = Integer.parseInt(inputArray.get(1));
+						if(rounds < 0){
+							System.out.println("error processing: " + input);
+						}else{
+							for(Integer i  = new Integer(0); i < rounds; i++){
+								Critter.worldTimeStep();
+							}
+						}
 					}
 				}
 			}
 			if (inputArray.get(0).equals("seed")){
 				if (inputArray.size() != 2){
-					//do something
+					System.out.println("error processing: " + input);
+				}else{
+					Integer seed = Integer.parseInt(inputArray.get(1));
+					Critter.setSeed((long) seed);
 				}
-				Integer seed = Integer.parseInt(inputArray.get(1));
-				Critter.setSeed((long) seed);
 			}
 			if (inputArray.get(0).equals("make")){
 				if (inputArray.size() == 2){
 					Critter.makeCritter(inputArray.get(1));
 				}else{
 					if (inputArray.size() == 1 || inputArray.size() > 3){
-						//do something
-					}
-					Integer rounds = Integer.parseInt(inputArray.get(2));
-					if(rounds < 0){
-						//do something
-					}
-					for(Integer i  = new Integer(0); i < rounds; i++){
-						Critter.makeCritter(inputArray.get(1));
+						System.out.println("error processing: " + input);
+					}else{
+						Integer rounds = Integer.parseInt(inputArray.get(2));
+						if(rounds < 0){
+							System.out.println("error processing: " + input);//do something
+						}else{
+							for(Integer i  = new Integer(0); i < rounds; i++){
+								Critter.makeCritter(inputArray.get(1));
+							}
+						}
 					}
 				}
 			}
 			if (inputArray.get(0).equals("stats")){
 				if (inputArray.size() != 2){
-					//do something
+					System.out.println("error processing: " + input);
+				}else{
+					List<Critter> crtStats = Critter.getInstances(inputArray.get(1));
+					Class c;
+					Object critter;
+					try { 
+			            c  = Class.forName("assignment4." + inputArray.get(1)); 
+			        } catch (ClassNotFoundException e) {
+						throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
+			        } 
+					try {
+						critter = c.newInstance();
+					} catch (IllegalAccessException e){
+						throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
+					}
+					if (!(critter instanceof Critter)){
+						throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
+					}
+					Critter.runStats(crtStats);
 				}
-				List<Critter> crtStats = Critter.getInstances(inputArray.get(1));
-				Class c;
-				Object critter;
-				try { 
-		            c  = Class.forName("assignment4." + inputArray.get(1)); 
-		        } catch (ClassNotFoundException e) {
-					throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
-		        } 
-				try {
-					critter = c.newInstance();
-				} catch (IllegalAccessException e){
-					throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
-				}
-				if (!(critter instanceof Critter)){
-					throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
-				}
-				
-				Critter.runStats(crtStats);
 			}
 			
 		}

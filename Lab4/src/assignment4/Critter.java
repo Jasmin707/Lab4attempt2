@@ -441,7 +441,6 @@ public abstract class Critter {
 		babies.clear();
 		for(int i = 0; i < Params.refresh_algae_count; i++){
 			Critter.makeCritter("Algae");
-			
 		}
 	}
 	
