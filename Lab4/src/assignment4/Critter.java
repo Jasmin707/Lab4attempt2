@@ -48,11 +48,10 @@ public abstract class Critter {
 	
 	private int x_coord;
 	private int y_coord;
-	private boolean hasWalked;
-	private boolean hasRan;
+	private boolean hasMoved;
 	
 	protected final void walk(int direction) {
-		if(!this.hasWalked){
+		if(!this.hasMoved){
 		switch(direction){
 			case 0:
 				this.x_coord = (this.x_coord + 1) % Params.world_width;
@@ -101,14 +100,13 @@ public abstract class Critter {
 				this.y_coord = (this.y_coord + 1) % Params.world_height;
 				break;
 			}
-			this.hasWalked = true;
-			this.hasRan = true;
+			this.hasMoved = true;
 		}
 		this.energy -= Params.walk_energy_cost;
 	}
 	
 	protected final void run(int direction) {
-		if(!this.hasRan){
+		if(!this.hasMoved){
 			switch(direction){
 				case 0:
 					this.x_coord = (this.x_coord + 2) % Params.world_width;
@@ -157,8 +155,7 @@ public abstract class Critter {
 					this.y_coord = (this.y_coord + 2) % Params.world_height;
 					break;
 				}
-				this.hasWalked = true;
-				this.hasRan = true;
+				this.hasMoved = true;
 			}
 			this.energy -= Params.run_energy_cost;
 	}
@@ -261,9 +258,39 @@ public abstract class Critter {
 	 * @param critter_class_name What kind of Critter is to be listed.  Unqualified class name.
 	 * @return List of Critters.
 	 * @throws InvalidCritterException
+	 * @throws InstantiationException 
 	 */
-	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
+	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException, InstantiationException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
+		Class c;
+		Object critter;
+		try { 
+            c  = Class.forName("assignment4." + critter_class_name); 
+        } catch (ClassNotFoundException e) {
+			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+        } 
+		try {
+			critter = c.newInstance();
+		} catch (IllegalAccessException e){
+			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+		}
+		if (!(critter instanceof Critter)){
+			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+		}
+		if (critter instanceof Craig){
+            for(Critter crt : population){
+    			if (crt instanceof Craig){
+    				result.add(crt);
+    			}
+    		}
+		}
+		if (critter instanceof Algae){
+            for(Critter crt : population){
+    			if (crt instanceof Algae){
+    				result.add(crt);
+    			}
+    		}
+		}
 	
 		return result;
 	}
@@ -353,8 +380,7 @@ public abstract class Critter {
 	
 	public static void worldTimeStep() throws InstantiationException, IllegalAccessException, InvalidCritterException {
 		for(Critter crt : population){
-			crt.hasWalked = false;
-			crt.hasRan = false;
+			crt.hasMoved = false;
 			crt.doTimeStep();
 			if(crt.energy <= 0){
 				population.remove(crt);
@@ -365,7 +391,6 @@ public abstract class Critter {
 		fights = findEncounters();
 		for(Encounters current : fights){
 			ArrayList<Critter> fighters = current.getFighters();
-			//for (Critter crt : fighters) {
 			boolean end = false;
 			while(!end){
 				if (fighters.size() < 2) {
@@ -393,13 +418,19 @@ public abstract class Critter {
 					if(diceA < diceB){
 						//B wins
 						b.energy += (a.energy/2);
-						population.remove(a); //is a right because its a reference to fighters.get(0)?
+						population.remove(a);
+						fighters.remove(a);
 					}
 					else{
 						//A wins (rolled higher or even)
 						a.energy += (b.energy/2);
 						population.remove(b);
+						fighters.remove(b);
 					}
+				}
+				else {
+					fighters.remove(a);
+					fighters.remove(b);
 				}
 			}
 		}

@@ -12,6 +12,7 @@
  */
 package assignment4; // cannot be in default package
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 
@@ -123,6 +124,46 @@ public class Main {
 				Integer seed = Integer.parseInt(inputArray.get(1));
 				Critter.setSeed((long) seed);
 			}
+			if (inputArray.get(0).equals("make")){
+				if (inputArray.size() == 2){
+					Critter.makeCritter(inputArray.get(1));
+				}else{
+					if (inputArray.size() == 1 || inputArray.size() > 3){
+						//do something
+					}
+					Integer rounds = Integer.parseInt(inputArray.get(2));
+					if(rounds < 0){
+						//do something
+					}
+					for(Integer i  = new Integer(0); i < rounds; i++){
+						Critter.makeCritter(inputArray.get(1));
+					}
+				}
+			}
+			if (inputArray.get(0).equals("stats")){
+				if (inputArray.size() != 2){
+					//do something
+				}
+				List<Critter> crtStats = Critter.getInstances(inputArray.get(1));
+				Class c;
+				Object critter;
+				try { 
+		            c  = Class.forName("assignment4." + inputArray.get(1)); 
+		        } catch (ClassNotFoundException e) {
+					throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
+		        } 
+				try {
+					critter = c.newInstance();
+				} catch (IllegalAccessException e){
+					throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
+				}
+				if (!(critter instanceof Critter)){
+					throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
+				}
+				
+				Critter.runStats(crtStats);
+			}
+			
 		}
         System.out.println("GLHF");
         
