@@ -15,6 +15,7 @@ package assignment4;
 public class Critter3 extends Critter{
 
 	private int dir;
+	private static int babyCounter = 0;
 	
 	/**
 	 * returns string representation of the critter
@@ -34,6 +35,7 @@ public class Critter3 extends Critter{
 	public void doTimeStep() {
 		 if (this.getEnergy() > 180){
 			 Critter3 child = new Critter3();
+			 babyCounter++;
 			 reproduce(child, Critter.getRandomInt(8));
 		 }
 		 else{
@@ -54,6 +56,16 @@ public class Critter3 extends Critter{
 			walk(dir);
 		}
 		return false;
+	}
+	
+	/**
+	 * This method prints the stats of Critter3
+	 * 
+	 * @param critter4s is the list of all living Critter3s
+	 */
+	public static void runStats(java.util.List<Critter> critter3s) {
+		System.out.print("" + critter3s.size() + " total Jasmins    ");
+		System.out.println("Total reproductions: " + babyCounter);
 	}
 
 }
