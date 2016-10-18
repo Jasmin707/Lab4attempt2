@@ -11,18 +11,20 @@
  * Fall 2016
  */
 package assignment4;
-import assignment4.Critter.TestCritter;
 
 /**
  * Critter1 is Snorlax.
  * It moves every 5 turns, and doesn't reproduce.
- * When it fights, it automatically gains 100 energy and then always fights.
+ * When it fights, it always fights.
  * @author Ethan Cranmer
  *
  */
-public class Critter1 extends TestCritter {
+public class Critter1 extends Critter {
 	private int moveCounter;
 	private int dir;
+	private boolean hasFought;
+	private int fightsWon;
+	private int timesMoved;
 	
 	/**
 	 * This method returns the number "1" the representation of Snorlax.
@@ -37,22 +39,39 @@ public class Critter1 extends TestCritter {
 	 */
 	@Override
 	public void doTimeStep() {
+		if(hasFought){
+			hasFought = false;
+			fightsWon++;
+		}
 		moveCounter = (moveCounter++) % 5;
 		dir = Critter.getRandomInt(8);
 		if (moveCounter == 4){
 			this.walk(dir);
+			timesMoved++;
 		}
 	}
 
 	/**
-	 * Snorlax gains 100 energy and then always fights.
+	 * Snorlax always fights.
 	 * 
 	 * @param opponent The string representation of the critter Snorlax will fight.
 	 */
 	@Override
 	public boolean fight(String opponent) {
-		setEnergy(getEnergy() + 100);
+		hasFought = true;
 		return true;
 	}
 
+	/**
+	 * This runs all the the stats of all the Snorlaxes.
+	 * 
+	 * @param snorlaxes The list of Snorlaxes that are going to be printed.
+	 */
+	public static void runStats(java.util.List<Critter> snorlaxes){
+		for(int i = 0; i < snorlaxes.size(); i++){
+			System.out.println("Stats for Snorlax " + i + ":");
+			System.out.println("Fights won: " + ((Critter1)snorlaxes.get(i)).fightsWon );
+			System.out.println("Times Moved: " + ((Critter1)snorlaxes.get(i)).timesMoved );
+		}
+	}
 }

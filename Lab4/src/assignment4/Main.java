@@ -147,7 +147,6 @@ public class Main {
 				}else{
 					List<Critter> crtStats = Critter.getInstances(inputArray.get(1));
 					Class<?> critClass;
-					Object critter;
 					try { 
 			            critClass  = Class.forName("assignment4." + inputArray.get(1)); 
 			            Method runStats = critClass.getMethod("runStats", List.class);
