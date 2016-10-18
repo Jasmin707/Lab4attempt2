@@ -16,6 +16,7 @@ public class Critter4 extends Critter{
 
 	private int dir;
 	private int doSwitch;
+	private static int babyCounter = 0;
 	
 	/**
 	 * returns string representation of the critter
@@ -86,6 +87,15 @@ public class Critter4 extends Critter{
 			walk(dir);
 		}
 		return false;
+	}
+	/**
+	 * This method prints the stats of Critter4
+	 * 
+	 * @param critter4s is the list of all living Critter4s
+	 */
+	public static void runStats(java.util.List<Critter> critter4s) {
+		System.out.print("" + critter4s.size() + " total Critter4s    ");
+		System.out.println("Total reproductions: " + babyCounter);
 	}
 
 }
