@@ -45,49 +45,51 @@ public abstract class Critter {
 	
 	private int energy = 0;
 	protected int getEnergy() { return energy; }
-	
+
 	private int x_coord;
 	private int y_coord;
 	private boolean hasMoved;
+	private boolean inFight;
 	
 	protected final void walk(int direction) {
-		if(!this.hasMoved){
-		switch(direction){
+		//fight case
+		if (!this.hasMoved) {
+			switch (direction) {
 			case 0:
 				this.x_coord = (this.x_coord + 1) % Params.world_width;
 				break;
 			case 1:
 				this.x_coord = (this.x_coord + 1) % Params.world_width;
 				this.y_coord -= 1;
-				if(this.y_coord < 0){
+				if (this.y_coord < 0) {
 					this.y_coord += Params.world_height;
 				}
 				break;
 			case 2:
 				this.y_coord -= 1;
-				if(this.y_coord < 0){
+				if (this.y_coord < 0) {
 					this.y_coord += Params.world_height;
 				}
 				break;
 			case 3:
 				this.x_coord -= 1;
-				if(this.x_coord < 0){
+				if (this.x_coord < 0) {
 					this.x_coord += Params.world_width;
 				}
 				this.y_coord -= 1;
-				if(this.y_coord < 0){
+				if (this.y_coord < 0) {
 					this.y_coord += Params.world_height;
 				}
 				break;
 			case 4:
 				this.x_coord -= 1;
-				if(this.x_coord < 0){
+				if (this.x_coord < 0) {
 					this.x_coord += Params.world_width;
 				}
 				break;
 			case 5:
 				this.x_coord -= 1;
-				if(this.x_coord < 0){
+				if (this.x_coord < 0) {
 					this.x_coord += Params.world_width;
 				}
 				this.y_coord = (this.y_coord + 1) % Params.world_height;
@@ -380,13 +382,17 @@ public abstract class Critter {
 	
 	public static void worldTimeStep() throws InstantiationException, IllegalAccessException, InvalidCritterException {
 		for(Critter crt : population){
+			crt.inFight = false;
 			crt.hasMoved = false;
 			crt.doTimeStep();
 			if(crt.energy <= 0){
 				population.remove(crt);
 			}
 		}
-		//encounters?
+		//encounters
+		for (Critter crt : population){
+			crt.inFight = true;
+		}
 		ArrayList<Encounters> fights = new ArrayList<Encounters>();
 		fights = findEncounters();
 		for(Encounters current : fights){
