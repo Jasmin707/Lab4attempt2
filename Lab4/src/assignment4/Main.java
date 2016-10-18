@@ -146,12 +146,12 @@ public class Main {
 					System.out.println("error processing: " + input);
 				}else{
 					List<Critter> crtStats = Critter.getInstances(inputArray.get(1));
-					Class<?> C;
+					Class<?> critClass;
 					Object critter;
 					try { 
-			            C  = Class.forName("assignment4." + inputArray.get(1)); 
-			            Method m = C.getMethod("runStats", List.class);
-			            C.m(crtStats);
+			            critClass  = Class.forName("assignment4." + inputArray.get(1)); 
+			            Method runStats = critClass.getMethod("runStats", List.class);
+			            runStats.invoke(null, crtStats);
 			        } catch (ClassNotFoundException e) {
 						throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
 			        } 
