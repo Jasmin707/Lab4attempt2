@@ -266,8 +266,9 @@ public abstract class Critter {
 		List<Critter> result = new java.util.ArrayList<Critter>();
 		Object critter;
 		Class<?> c;
-		Class<?> crit = Class.forName("assignment4.Critter");
+		Class<?> crit;
 		try { 
+			crit = Class.forName("assignment4.Critter");
 			c  = Class.forName("assignment4." + critter_class_name); 
         } catch (ClassNotFoundException e) {
 			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
