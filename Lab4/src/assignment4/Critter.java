@@ -398,6 +398,8 @@ public abstract class Critter {
 			critter = c.newInstance();
 		} catch (IllegalAccessException e){
 			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+		} catch (InstantiationException e){
+			throw new InstantiationException(critter_class_name + " is not a valid critter class");
 		}
 		if (!(critter instanceof Critter)){
 			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
@@ -430,6 +432,8 @@ public abstract class Critter {
 			critter = c.newInstance();
 		} catch (IllegalAccessException e){
 			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+		} catch (InstantiationException e){
+			throw new InstantiationException(critter_class_name + " is not a valid critter class");
 		}
 		if (!(critter instanceof Critter)){
 			throw new InstantiationException(critter_class_name + " is not a valid critter class");

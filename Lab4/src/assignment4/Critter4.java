@@ -23,7 +23,7 @@ public class Critter4 extends Critter{
 	 */
 	@Override
 	public String toString() {
-		return "R";
+		return "4";
 	}
 	
 	public Critter4(){

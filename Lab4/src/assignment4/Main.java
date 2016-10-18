@@ -83,21 +83,22 @@ public class Main {
 				inputArray.add(temp);
 			}
 			fromInput.close();
+			try {
 			if (inputArray.get(0).equals("quit")){
 				if (inputArray.size() != 1){
 					System.out.println("error processing: " + input);
 				}else{
-					System.exit(0);
+					break;
 				}
 			}
-			if (inputArray.get(0).equals("show")){
+			else if (inputArray.get(0).equals("show")){
 				if (inputArray.size() != 1){
 					System.out.println("error processing: " + input);
 				}else{
 					Critter.displayWorld();
 				}
 			}
-			if (inputArray.get(0).equals("step")){
+			else if (inputArray.get(0).equals("step")){
 				if (inputArray.size() == 1){
 					Critter.worldTimeStep();
 				}else{
@@ -115,15 +116,19 @@ public class Main {
 					}
 				}
 			}
-			if (inputArray.get(0).equals("seed")){
+			else if (inputArray.get(0).equals("seed")){
 				if (inputArray.size() != 2){
 					System.out.println("error processing: " + input);
 				}else{
-					Integer seed = Integer.parseInt(inputArray.get(1));
-					Critter.setSeed((long) seed);
+					try {
+						Integer seed = Integer.parseInt(inputArray.get(1));
+						Critter.setSeed((long) seed);
+					} catch (NumberFormatException e){
+						System.out.println("error processing: " + input);
+					}
 				}
 			}
-			if (inputArray.get(0).equals("make")){
+			else if (inputArray.get(0).equals("make")){
 				if (inputArray.size() == 2){
 					Critter.makeCritter(inputArray.get(1));
 				}else{
@@ -141,7 +146,7 @@ public class Main {
 					}
 				}
 			}
-			if (inputArray.get(0).equals("stats")){
+			else if (inputArray.get(0).equals("stats")){
 				if (inputArray.size() != 2){
 					System.out.println("error processing: " + input);
 				}else{
@@ -157,7 +162,12 @@ public class Main {
 					
 				}
 			}
-			
+			else {
+				System.out.println("invalid command: " + input);
+			}
+			} catch (Exception e){
+				System.out.println("error processing: " + input);
+			}
 		}
         System.out.flush();
 

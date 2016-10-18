@@ -21,7 +21,7 @@ public class Critter3 extends Critter{
 	 * returns string representation of the critter
 	 */
 	@Override
-	public String toString() { return "J"; }
+	public String toString() { return "3"; }
 	
 	public Critter3(){
 		dir = Critter.getRandomInt(8);
