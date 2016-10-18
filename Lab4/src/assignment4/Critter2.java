@@ -11,7 +11,6 @@
  * Fall 2016
  */
 package assignment4;
-import assignment4.Critter.TestCritter;
 
 /**
  * Critter2 is Pikachu.
@@ -19,7 +18,7 @@ import assignment4.Critter.TestCritter;
  * @author Ethan Cranmer
  *
  */
-public class Critter2 extends TestCritter {
+public class Critter2 extends Critter {
 	private int dir;
 	private int moveCounter;
 	
