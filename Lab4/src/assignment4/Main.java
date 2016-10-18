@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.*;
+import java.lang.reflect.Method;
 
 
 /*
@@ -145,22 +146,16 @@ public class Main {
 					System.out.println("error processing: " + input);
 				}else{
 					List<Critter> crtStats = Critter.getInstances(inputArray.get(1));
-					Class c;
+					Class<?> C;
 					Object critter;
 					try { 
-			            c  = Class.forName("assignment4." + inputArray.get(1)); 
+			            C  = Class.forName("assignment4." + inputArray.get(1)); 
+			            Method m = C.getMethod("runStats", List.class);
+			            C.m(crtStats);
 			        } catch (ClassNotFoundException e) {
 						throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
 			        } 
-					try {
-						critter = c.newInstance();
-					} catch (IllegalAccessException e){
-						throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
-					}
-					if (!(critter instanceof Critter)){
-						throw new InvalidCritterException(inputArray.get(1) + " is not a valid critter class");
-					}
-					Critter.runStats(crtStats);
+					
 				}
 			}
 			

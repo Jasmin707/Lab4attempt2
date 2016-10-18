@@ -1,23 +1,30 @@
 package assignment4;
 
-public class Reverse extends Critter{
+public class Critter4 extends Critter{
 
 	private int dir;
 	private int doSwitch;
 	
+	/**
+	 * returns string representation of the critter
+	 */
 	@Override
 	public String toString() {
 		return "R";
 	}
 	
-	public Reverse(){
+	public Critter4(){
 		dir = Critter.getRandomInt(8);
 	}
 	
+	
+	/**
+	 * This method determines what the critter does during each timestep
+	 */
 	@Override
 	public void doTimeStep() {
 		if(this.getEnergy() > 100){
-			Reverse child = new Reverse();
+			Critter4 child = new Critter4();
 			reproduce(child, Critter.getRandomInt(8));
 		}
 		else {
@@ -55,6 +62,9 @@ public class Reverse extends Critter{
 		}
 	}
 
+	/**
+	 * This method determines how the critter acts in a fight
+	 */
 	@Override
 	public boolean fight(String oponent) {
 		if (this.getEnergy() > 80){
