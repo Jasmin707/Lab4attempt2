@@ -52,99 +52,217 @@ public abstract class Critter {
 	private boolean inFight;
 	
 	protected final void walk(int direction) {
-		//fight case
+		int tempX = -1;
+		int tempY = -1;
+		boolean canMove = true;
 		if (!this.hasMoved) {
-			switch (direction) {
-			case 0:
-				this.x_coord = (this.x_coord + 1) % Params.world_width;
-				break;
-			case 1:
-				this.x_coord = (this.x_coord + 1) % Params.world_width;
-				this.y_coord -= 1;
-				if (this.y_coord < 0) {
-					this.y_coord += Params.world_height;
+			if (this.inFight) {
+				switch (direction) {
+				case 0:
+					tempX = (this.x_coord + 1) % Params.world_width;
+					break;
+				case 1:
+					tempX = (this.x_coord + 1) % Params.world_width;
+					tempY = this.y_coord - 1;
+					if (tempY < 0) {
+						tempY += Params.world_height;
+					}
+					break;
+				case 2:
+					tempY = this.y_coord - 1;
+					if (tempY < 0) {
+						tempY += Params.world_height;
+					}
+					break;
+				case 3:
+					tempX = this.x_coord - 1;
+					if (tempX < 0) {
+						tempX += Params.world_width;
+					}
+					tempY = this.y_coord - 1;
+					if (tempY < 0) {
+						tempY += Params.world_height;
+					}
+					break;
+				case 4:
+					tempX = this.x_coord - 1;
+					if (tempX < 0) {
+						tempX += Params.world_width;
+					}
+					break;
+				case 5:
+					tempX = this.x_coord - 1;
+					if (tempX < 0) {
+						tempX += Params.world_width;
+					}
+					tempY = (this.y_coord + 1) % Params.world_height;
+					break;
+				case 6:
+					tempY = (this.y_coord + 1) % Params.world_height;
+					break;
+				case 7:
+					tempX = (this.x_coord + 1) % Params.world_width;
+					tempY = (this.y_coord + 1) % Params.world_height;
+					break;
 				}
-				break;
-			case 2:
-				this.y_coord -= 1;
-				if (this.y_coord < 0) {
-					this.y_coord += Params.world_height;
+				for (Critter critter : population){
+					if ((critter.x_coord == tempX) && (critter.y_coord == tempY)){
+						canMove = false;
+					}
 				}
-				break;
-			case 3:
-				this.x_coord -= 1;
-				if (this.x_coord < 0) {
-					this.x_coord += Params.world_width;
-				}
-				this.y_coord -= 1;
-				if (this.y_coord < 0) {
-					this.y_coord += Params.world_height;
-				}
-				break;
-			case 4:
-				this.x_coord -= 1;
-				if (this.x_coord < 0) {
-					this.x_coord += Params.world_width;
-				}
-				break;
-			case 5:
-				this.x_coord -= 1;
-				if (this.x_coord < 0) {
-					this.x_coord += Params.world_width;
-				}
-				this.y_coord = (this.y_coord + 1) % Params.world_height;
-				break;
-			case 6:
-				this.y_coord = (this.y_coord + 1) % Params.world_height;
-				break;
-			case 7:
-				this.x_coord = (this.x_coord + 1) % Params.world_width;
-				this.y_coord = (this.y_coord + 1) % Params.world_height;
-				break;
 			}
-			this.hasMoved = true;
+			if (canMove) {
+				switch (direction) {
+				case 0:
+					this.x_coord = (this.x_coord + 1) % Params.world_width;
+					break;
+				case 1:
+					this.x_coord = (this.x_coord + 1) % Params.world_width;
+					this.y_coord -= 1;
+					if (this.y_coord < 0) {
+						this.y_coord += Params.world_height;
+					}
+					break;
+				case 2:
+					this.y_coord -= 1;
+					if (this.y_coord < 0) {
+						this.y_coord += Params.world_height;
+					}
+					break;
+				case 3:
+					this.x_coord -= 1;
+					if (this.x_coord < 0) {
+						this.x_coord += Params.world_width;
+					}
+					this.y_coord -= 1;
+					if (this.y_coord < 0) {
+						this.y_coord += Params.world_height;
+					}
+					break;
+				case 4:
+					this.x_coord -= 1;
+					if (this.x_coord < 0) {
+						this.x_coord += Params.world_width;
+					}
+					break;
+				case 5:
+					this.x_coord -= 1;
+					if (this.x_coord < 0) {
+						this.x_coord += Params.world_width;
+					}
+					this.y_coord = (this.y_coord + 1) % Params.world_height;
+					break;
+				case 6:
+					this.y_coord = (this.y_coord + 1) % Params.world_height;
+					break;
+				case 7:
+					this.x_coord = (this.x_coord + 1) % Params.world_width;
+					this.y_coord = (this.y_coord + 1) % Params.world_height;
+					break;
+				}
+				this.hasMoved = true;
+			}
 		}
 		this.energy -= Params.walk_energy_cost;
 	}
 	
 	protected final void run(int direction) {
+		int tempX = -1;
+		int tempY = -1;
+		boolean canMove = true;
 		if(!this.hasMoved){
-			switch(direction){
+			if (this.inFight) {
+				switch (direction) {
+				case 0:
+					tempX = (this.x_coord + 2) % Params.world_width;
+					break;
+				case 1:
+					tempX = (this.x_coord + 2) % Params.world_width;
+					tempY = this.y_coord - 2;
+					if (tempY < 0) {
+						tempY += Params.world_height;
+					}
+					break;
+				case 2:
+					tempY = this.y_coord - 2;
+					if (tempY < 0) {
+						tempY += Params.world_height;
+					}
+					break;
+				case 3:
+					tempX = this.x_coord - 2;
+					if (tempX < 0) {
+						tempX += Params.world_width;
+					}
+					tempY = this.y_coord - 2;
+					if (tempY < 0) {
+						tempY += Params.world_height;
+					}
+					break;
+				case 4:
+					tempX = this.x_coord - 2;
+					if (tempX < 0) {
+						tempX += Params.world_width;
+					}
+					break;
+				case 5:
+					tempX = this.x_coord - 2;
+					if (tempX < 0) {
+						tempX += Params.world_width;
+					}
+					tempY = (this.y_coord + 2) % Params.world_height;
+					break;
+				case 6:
+					tempY = (this.y_coord + 2) % Params.world_height;
+					break;
+				case 7:
+					tempX = (this.x_coord + 2) % Params.world_width;
+					tempY = (this.y_coord + 2) % Params.world_height;
+					break;
+				}
+				for (Critter critter : population){
+					if ((critter.x_coord == tempX) && (critter.y_coord == tempY)){
+						canMove = false;
+					}
+				}
+			}
+			if (canMove) {
+				switch (direction) {
 				case 0:
 					this.x_coord = (this.x_coord + 2) % Params.world_width;
 					break;
 				case 1:
 					this.x_coord = (this.x_coord + 2) % Params.world_width;
 					this.y_coord -= 2;
-					if(this.y_coord < 0){
+					if (this.y_coord < 0) {
 						this.y_coord += Params.world_height;
 					}
 					break;
 				case 2:
 					this.y_coord -= 2;
-					if(this.y_coord < 0){
+					if (this.y_coord < 0) {
 						this.y_coord += Params.world_height;
 					}
 					break;
 				case 3:
 					this.x_coord -= 2;
-					if(this.x_coord < 0){
+					if (this.x_coord < 0) {
 						this.x_coord += Params.world_width;
 					}
 					this.y_coord -= 2;
-					if(this.y_coord < 0){
+					if (this.y_coord < 0) {
 						this.y_coord += Params.world_height;
 					}
 					break;
 				case 4:
 					this.x_coord -= 2;
-					if(this.x_coord < 0){
+					if (this.x_coord < 0) {
 						this.x_coord += Params.world_width;
 					}
 					break;
 				case 5:
 					this.x_coord -= 2;
-					if(this.x_coord < 0){
+					if (this.x_coord < 0) {
 						this.x_coord += Params.world_width;
 					}
 					this.y_coord = (this.y_coord + 2) % Params.world_height;
@@ -159,7 +277,8 @@ public abstract class Critter {
 				}
 				this.hasMoved = true;
 			}
-			this.energy -= Params.run_energy_cost;
+		}
+		this.energy -= Params.run_energy_cost;
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
