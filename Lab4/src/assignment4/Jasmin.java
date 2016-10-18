@@ -25,8 +25,8 @@ public class Jasmin extends Critter{
 	}
 
 	@Override
-	public boolean fight(String oponent) {
-		if (oponent.equals("@") || this.getEnergy() > 100) {
+	public boolean fight(String opponent) {
+		if (opponent.equals("@") || this.getEnergy() > 100) {
 			return true;
 		}
 		else {
