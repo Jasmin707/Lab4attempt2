@@ -1,13 +1,13 @@
 /* CRITTERS Main.java
  * EE422C Project 4 submission by
- * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
- * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
+ * Jasmin Rajan
+ * jor427
+ * 16470
+ * Ethan Cranmer
+ * elc2255
+ * 16475
  * Slip days used: <0>
+ * Git URL: https://github.com/Jasmin707/Lab4attempt2
  * Fall 2016
  */
 package assignment4; // cannot be in default package
@@ -160,9 +160,6 @@ public class Main {
 			}
 			
 		}
-        System.out.println("GLHF");
-        
-        /* Write your code above */
         System.out.flush();
 
     }

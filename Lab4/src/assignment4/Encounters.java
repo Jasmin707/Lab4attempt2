@@ -30,7 +30,4 @@ public class Encounters {
 	public void setFighters(ArrayList<Critter> critters) {
 		this.critters = critters;
 	}
-	
-	
-
 }

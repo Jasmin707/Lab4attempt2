@@ -1,3 +1,15 @@
+/* CRITTERS Critter4.java
+ * EE422C Project 4 submission by
+ * Jasmin Rajan
+ * jor427
+ * 16470
+ * Ethan Cranmer
+ * elc2255
+ * 16475
+ * Slip days used: <0>
+ * Git URL: https://github.com/Jasmin707/Lab4attempt2
+ * Fall 2016
+ */
 package assignment4;
 
 public class Critter4 extends Critter{
