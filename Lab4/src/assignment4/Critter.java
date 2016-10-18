@@ -264,10 +264,11 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException, InstantiationException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-		Class c;
 		Object critter;
+		Class<?> c;
+		Class<?> crit = Class.forName("assignment4.Critter");
 		try { 
-            c  = Class.forName("assignment4." + critter_class_name); 
+			c  = Class.forName("assignment4." + critter_class_name); 
         } catch (ClassNotFoundException e) {
 			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
         } 
@@ -278,6 +279,10 @@ public abstract class Critter {
 		}
 		if (!(critter instanceof Critter)){
 			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+		}
+		//i think this will work and get tell us if it is a type of critter
+		if(c.isAssignableFrom(crit)){
+			
 		}
 		if (critter instanceof Craig){
             for(Critter crt : population){
