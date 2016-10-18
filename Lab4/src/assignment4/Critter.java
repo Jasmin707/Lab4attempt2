@@ -550,11 +550,7 @@ public abstract class Critter {
 		fights = findEncounters();
 		for(Encounters current : fights){
 			ArrayList<Critter> fighters = current.getFighters();
-			boolean end = false;
-			while(!end){
-				if (fighters.size() < 2) {
-					end = true;
-				}
+			while(fighters.size() >= 2){
 				Critter a = fighters.get(0);
 				Critter b = fighters.get(1);
 				boolean willAFight = a.fight(b.toString());

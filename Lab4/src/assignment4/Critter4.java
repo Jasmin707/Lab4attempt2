@@ -38,6 +38,7 @@ public class Critter4 extends Critter{
 	public void doTimeStep() {
 		if(this.getEnergy() > 100){
 			Critter4 child = new Critter4();
+			babyCounter++;
 			reproduce(child, Critter.getRandomInt(8));
 		}
 		else {
