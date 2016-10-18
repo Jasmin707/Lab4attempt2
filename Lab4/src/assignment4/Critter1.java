@@ -22,9 +22,9 @@ package assignment4;
 public class Critter1 extends Critter {
 	private int moveCounter;
 	private int dir;
-	private boolean hasFought;
-	private int fightsWon;
-	private int timesMoved;
+	private static boolean hasFought;
+	private static int fightsWon;
+	private static int timesMoved;
 	
 	/**
 	 * This method returns the number "1" the representation of Snorlax.
@@ -68,10 +68,8 @@ public class Critter1 extends Critter {
 	 * @param snorlaxes The list of Snorlaxes that are going to be printed.
 	 */
 	public static void runStats(java.util.List<Critter> snorlaxes){
-		for(int i = 0; i < snorlaxes.size(); i++){
-			System.out.println("Stats for Snorlax " + i + ":");
-			System.out.println("Fights won: " + ((Critter1)snorlaxes.get(i)).fightsWon );
-			System.out.println("Times Moved: " + ((Critter1)snorlaxes.get(i)).timesMoved );
-		}
+			System.out.println("Stats for " + snorlaxes.size() + " Critter1 :");
+			System.out.println("Total Fights Won: " + fightsWon );
+			System.out.println("Total Times Moved: " + timesMoved );
 	}
 }

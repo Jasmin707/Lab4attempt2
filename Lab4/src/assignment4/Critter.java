@@ -31,10 +31,22 @@ public abstract class Critter {
 	}
 	
 	private static java.util.Random rand = new java.util.Random();
+	
+	/**
+	 * This function gives a random number from 0-(max - 1); 
+	 * 
+	 * @param max the maximum number that a function can have
+	 * @return the random number
+	 */
 	public static int getRandomInt(int max) {
 		return rand.nextInt(max);
 	}
 	
+	/**
+	 * Sets a seed that will be used by the random function.
+	 * 
+	 * @param new_seed the seed value to be set
+	 */
 	public static void setSeed(long new_seed) {
 		rand = new java.util.Random(new_seed);
 	}
@@ -44,6 +56,12 @@ public abstract class Critter {
 	public String toString() { return ""; }
 	
 	private int energy = 0;
+	
+	/**
+	 * This function returns the energy of a critter.
+	 * 
+	 * @return the energy of the critter that calls this function.
+	 */
 	protected int getEnergy() { return energy; }
 
 	private int x_coord;
@@ -51,6 +69,11 @@ public abstract class Critter {
 	private boolean hasMoved;
 	private boolean inFight;
 	
+	/**
+	 * The critter that calls this function will be moved in the specified direction and will have the appropriate energy subtracted.
+	 * 
+	 * @param direction that the critter will move in
+	 */
 	protected final void walk(int direction) {
 		int tempX = -1;
 		int tempY = -1;
@@ -166,6 +189,11 @@ public abstract class Critter {
 		this.energy -= Params.walk_energy_cost;
 	}
 	
+	/**
+	 * The critter that calls this function moves two spaces in a specified direction and subtracts the appropriate amount of energy.
+	 * 
+	 * @param direction the direction that critter will move in
+	 */
 	protected final void run(int direction) {
 		int tempX = -1;
 		int tempY = -1;
@@ -281,6 +309,12 @@ public abstract class Critter {
 		this.energy -= Params.run_energy_cost;
 	}
 	
+	/**
+	 * This function performs all necessary instantiations on the offspring that has been created.
+	 * 
+	 * @param offspring The offspring critter object to be instantiated.
+	 * @param direction The direction that the new offspring will be placed in relative to the parent.
+	 */
 	protected final void reproduce(Critter offspring, int direction) {
 		if (this.energy < Params.min_reproduce_energy){
 			return;
@@ -398,10 +432,8 @@ public abstract class Critter {
 			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
 		}
 		if (!(critter instanceof Critter)){
-			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+			throw new InstantiationException(critter_class_name + " is not a valid critter class");
 		}
-		//i think this will work and get tell us if it is a type of critter
-		
 		for(Critter crt : population){
 			if (critter.getClass().isInstance(crt) ){
 				result.add(crt);
@@ -493,6 +525,14 @@ public abstract class Critter {
 		population.clear();
 	}
 	
+	
+	/**
+	 * The function that does a world time step for the critter.
+	 * 
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvalidCritterException
+	 */
 	public static void worldTimeStep() throws InstantiationException, IllegalAccessException, InvalidCritterException {
 		for(Critter crt : population){
 			crt.inFight = false;
@@ -563,6 +603,9 @@ public abstract class Critter {
 		}
 	}
 	
+	/**
+	 * Displays the board to the console.
+	 */
 	public static void displayWorld() {
 		//top of box
 		boolean exists;
@@ -598,6 +641,10 @@ public abstract class Critter {
 		System.out.println("+");
 	}
 	
+	/**
+	 * This function returns the arrayList of all the encounters that occur after a world time step.
+	 * @return The list of all the encounters that happens each step.
+	 */
 	private static ArrayList<Encounters> findEncounters(){
 		ArrayList<Encounters> encounters = new ArrayList<Encounters>();
 		for(int i = 0; i < Params.world_width; i++){

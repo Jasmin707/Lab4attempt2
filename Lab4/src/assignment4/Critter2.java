@@ -21,10 +21,10 @@ package assignment4;
 public class Critter2 extends Critter {
 	private int dir;
 	private int moveCounter;
-	private boolean hasFought;
-	private int fightsWon;
-	private int timesMoved;
-	private int pikachusHatched;
+	private static boolean hasFought;
+	private static int fightsWon;
+	private static int timesMoved;
+	private static int pikachusHatched;
 	
 	/**
 	 * This function returns the string representation of Pikachu.
@@ -76,11 +76,10 @@ public class Critter2 extends Critter {
 	 * @param pikachus The list of Pikachus that are going to be printed.
 	 */
 	public static void runStats(java.util.List<Critter> pikachus){
-		for(int i = 0; i < pikachus.size(); i++){
-			System.out.println("Stats for Pikachu " + i + ":");
-			System.out.println("Fights won: " + ((Critter2)pikachus.get(i)).fightsWon );
-			System.out.println("Times Moved: " + ((Critter2)pikachus.get(i)).timesMoved );
-			System.out.println("Baby Pikachus Hatched: " + ((Critter2)pikachus.get(i)).pikachusHatched );
-		}
+			System.out.println("Stats for " + pikachus.size() + " Critter2s: ");
+			System.out.println("Total Fights Won: " + fightsWon );
+			System.out.println("Total Times Moved: " + timesMoved );
+			System.out.println("Total Babies Hatched: " + pikachusHatched );
+		
 	}
 }
