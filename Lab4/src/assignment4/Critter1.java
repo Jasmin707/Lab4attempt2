@@ -11,7 +11,6 @@
  * Fall 2016
  */
 package assignment4;
-import assignment4.Critter.TestCritter;
 
 /**
  * Critter1 is Snorlax.
@@ -20,7 +19,7 @@ import assignment4.Critter.TestCritter;
  * @author Ethan Cranmer
  *
  */
-public class Critter1 extends TestCritter {
+public class Critter1 extends Critter {
 	private int moveCounter;
 	private int dir;
 	
@@ -51,7 +50,6 @@ public class Critter1 extends TestCritter {
 	 */
 	@Override
 	public boolean fight(String opponent) {
-		setEnergy(getEnergy() + 100);
 		return true;
 	}
 
