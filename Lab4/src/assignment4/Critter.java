@@ -282,24 +282,12 @@ public abstract class Critter {
 			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
 		}
 		//i think this will work and get tell us if it is a type of critter
-		if(c.isAssignableFrom(crit)){
-			
+		
+		for(Critter crt : population){
+			if (critter.getClass().isInstance(crt) ){
+				result.add(crt);
+			}
 		}
-		if (critter instanceof Craig){
-            for(Critter crt : population){
-    			if (crt instanceof Craig){
-    				result.add(crt);
-    			}
-    		}
-		}
-		if (critter instanceof Algae){
-            for(Critter crt : population){
-    			if (crt instanceof Algae){
-    				result.add(crt);
-    			}
-    		}
-		}
-	
 		return result;
 	}
 	
