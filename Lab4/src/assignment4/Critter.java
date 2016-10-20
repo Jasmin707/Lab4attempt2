@@ -387,23 +387,23 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 * @throws InstantiationException 
 	 */
-	public static void makeCritter(String critter_class_name) throws InvalidCritterException, InstantiationException, IllegalAccessException {
+	public static void makeCritter(String critter_class_name) throws InvalidCritterException{
 		Class c;
 		Object critter;
 		try { 
             c  = Class.forName("assignment4." + critter_class_name); 
         } catch (ClassNotFoundException e) {
-			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+			throw new InvalidCritterException(critter_class_name);
         } 
 		try {
 			critter = c.newInstance();
 		} catch (IllegalAccessException e){
-			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+			throw new InvalidCritterException(critter_class_name);
 		} catch (InstantiationException e){
-			throw new InstantiationException(critter_class_name + " is not a valid critter class");
+			throw new InvalidCritterException(critter_class_name);
 		}
 		if (!(critter instanceof Critter)){
-			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+			throw new InvalidCritterException(critter_class_name);
 		}
 		population.add((Critter)critter);
 		((Critter)critter).energy = Params.start_energy;
@@ -418,7 +418,7 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 * @throws InstantiationException 
 	 */
-	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException, InstantiationException {
+	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException{
 		List<Critter> result = new java.util.ArrayList<Critter>();
 		Object critter;
 		Class<?> c;
@@ -427,17 +427,17 @@ public abstract class Critter {
 			crit = Class.forName("assignment4.Critter");
 			c  = Class.forName("assignment4." + critter_class_name); 
         } catch (ClassNotFoundException e) {
-			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+			throw new InvalidCritterException(critter_class_name);
         } 
 		try {
 			critter = c.newInstance();
 		} catch (IllegalAccessException e){
-			throw new InvalidCritterException(critter_class_name + " is not a valid critter class");
+			throw new InvalidCritterException(critter_class_name);
 		} catch (InstantiationException e){
-			throw new InstantiationException(critter_class_name + " is not a valid critter class");
+			throw new InvalidCritterException(critter_class_name);
 		}
 		if (!(critter instanceof Critter)){
-			throw new InstantiationException(critter_class_name + " is not a valid critter class");
+			throw new InvalidCritterException(critter_class_name);
 		}
 		for(Critter crt : population){
 			if (critter.getClass().isInstance(crt) ){
@@ -533,12 +533,10 @@ public abstract class Critter {
 	
 	/**
 	 * The function that does a world time step for the critter.
-	 * 
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 *
 	 * @throws InvalidCritterException
 	 */
-	public static void worldTimeStep() throws InstantiationException, IllegalAccessException, InvalidCritterException {
+	public static void worldTimeStep(){
 		
 		for(Iterator<Critter> iterator = population.iterator(); iterator.hasNext();){
 			Critter crt = iterator.next();
@@ -603,7 +601,9 @@ public abstract class Critter {
 		}
 		babies.clear();
 		for(int i = 0; i < Params.refresh_algae_count; i++){
-			Critter.makeCritter("Algae");
+			try{
+				Critter.makeCritter("Algae");
+			}catch (Exception e){}
 		}
 	}
 	
