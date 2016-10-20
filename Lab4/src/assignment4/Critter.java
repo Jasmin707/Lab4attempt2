@@ -13,6 +13,7 @@
 package assignment4;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -538,12 +539,15 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 */
 	public static void worldTimeStep() throws InstantiationException, IllegalAccessException, InvalidCritterException {
-		for(Critter crt : population){
+		
+		for(Iterator<Critter> iterator = population.iterator(); iterator.hasNext();){
+			Critter crt = iterator.next();
 			crt.inFight = false;
 			crt.hasMoved = false;
 			crt.doTimeStep();
+			crt.energy -= Params.rest_energy_cost;
 			if(crt.energy <= 0){
-				population.remove(crt);
+				iterator.remove();
 			}
 		}
 		//encounters
