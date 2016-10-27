@@ -1,5 +1,5 @@
 /* CRITTERS Critter2.java
- * EE422C Project 4 submission by
+ * EE422C Project 5 submission by
  * Jasmin Rajan
  * jor427
  * 16470
@@ -10,7 +10,7 @@
  * Git URL: https://github.com/Jasmin707/Lab4attempt2
  * Fall 2016
  */
-package assignment4;
+package assignment5;
 
 /**
  * Critter2 is Pikachu.

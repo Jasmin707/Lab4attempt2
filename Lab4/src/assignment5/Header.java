@@ -1,6 +1,6 @@
-package assignment4;
+package assignment5;
 /* CRITTERS <MyClass.java>
- * EE422C Project 4 submission by
+ * EE422C Project 5 submission by
  * Jasmin Rajan
  * jor427
  * 16470

@@ -1,5 +1,5 @@
 /* CRITTERS Critter.java
- * EE422C Project 4 submission by
+ * EE422C Project 5 submission by
  * Jasmin Rajan
  * jor427
  * 16470
@@ -10,11 +10,23 @@
  * Git URL: https://github.com/Jasmin707/Lab4attempt2
  * Fall 2016
  */
-package assignment4;
+package assignment5;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
@@ -22,6 +34,41 @@ import java.util.List;
  */
 
 public abstract class Critter {
+	/* NEW FOR PROJECT 5 */
+	public enum CritterShape {
+		CIRCLE,
+		SQUARE,
+		TRIANGLE,
+		DIAMOND,
+		STAR
+	}
+	
+	/* the default color is white, which I hope makes critters invisible by default
+	 * If you change the background color of your View component, then update the default
+	 * color to be the same as you background 
+	 * 
+	 * critters must override at least one of the following three methods, it is not 
+	 * proper for critters to remain invisible in the view
+	 * 
+	 * If a critter only overrides the outline color, then it will look like a non-filled 
+	 * shape, at least, that's the intent. You can edit these default methods however you 
+	 * need to, but please preserve that intent as you implement them. 
+	 */
+	public javafx.scene.paint.Color viewColor() { 
+		return javafx.scene.paint.Color.WHITE; 
+	}
+	
+	public javafx.scene.paint.Color viewOutlineColor() { return viewColor(); }
+	public javafx.scene.paint.Color viewFillColor() { return viewColor(); }
+	
+	public abstract CritterShape viewShape(); 
+
+	// Gets the package name.  This assumes that Critter and its subclasses are all in the same package.
+	static {
+		myPackage = Critter.class.getPackage().toString().split(" ")[1];
+	}
+	
+	protected String look(int direction, boolean steps) {return "";}
 	private static String myPackage;
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
