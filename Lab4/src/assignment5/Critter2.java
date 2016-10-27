@@ -82,4 +82,10 @@ public class Critter2 extends Critter {
 			System.out.println("Total Babies Hatched: " + pikachusHatched );
 		
 	}
+
+	@Override
+	public CritterShape viewShape() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

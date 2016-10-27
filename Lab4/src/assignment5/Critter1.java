@@ -72,4 +72,10 @@ public class Critter1 extends Critter {
 			System.out.println("Total Fights Won: " + fightsWon );
 			System.out.println("Total Times Moved: " + timesMoved );
 	}
+
+	@Override
+	public CritterShape viewShape() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

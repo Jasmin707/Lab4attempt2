@@ -99,4 +99,10 @@ public class Critter4 extends Critter{
 		System.out.println("Total reproductions: " + babyCounter);
 	}
 
+	@Override
+	public CritterShape viewShape() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
