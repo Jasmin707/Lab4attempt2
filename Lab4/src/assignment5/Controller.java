@@ -21,7 +21,7 @@ public class Controller extends Stage {
 	    openOther.setOnAction(new EventHandler<ActionEvent>() {
 	        @Override
 	        public void handle(ActionEvent t) {
-	            System.out.println("Hellow World");;
+	            System.out.println("Hello World");;
 	        }
 	    });
 	}
