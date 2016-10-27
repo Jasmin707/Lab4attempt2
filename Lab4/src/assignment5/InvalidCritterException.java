@@ -7,6 +7,7 @@ public class InvalidCritterException extends Exception {
 		offending_class = critter_class_name;
 	}
 	
+	@Override
 	public String toString() {
 		return "Invalid Critter Class: " + offending_class;
 	}

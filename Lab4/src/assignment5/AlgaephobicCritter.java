@@ -14,6 +14,7 @@ public class AlgaephobicCritter extends Critter {
 		Params.refresh_algae_count = 0;
 	}
 
+	@Override
 	public boolean fight(String not_used) { return false; }
 
 	@Override
