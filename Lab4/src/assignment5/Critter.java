@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.stage.Stage;
+
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
  * no new public, protected or default-package code or data can be added to Critter
@@ -426,7 +428,7 @@ public abstract class Critter {
 		Class c;
 		Object critter;
 		try { 
-            c  = Class.forName("assignment4." + critter_class_name); 
+            c  = Class.forName("assignment5." + critter_class_name); 
         } catch (ClassNotFoundException e) {
 			throw new InvalidCritterException(critter_class_name);
         } 
@@ -458,8 +460,8 @@ public abstract class Critter {
 		Class<?> c;
 		Class<?> crit;
 		try { 
-			crit = Class.forName("assignment4.Critter");
-			c  = Class.forName("assignment4." + critter_class_name); 
+			crit = Class.forName("assignment5.Critter");
+			c  = Class.forName("assignment5." + critter_class_name); 
         } catch (ClassNotFoundException e) {
 			throw new InvalidCritterException(critter_class_name);
         } 
@@ -643,38 +645,7 @@ public abstract class Critter {
 	 * Displays the board to the console.
 	 */
 	public static void displayWorld() {
-		//top of box
-		boolean exists;
-		int loc = 0;
-		System.out.print("+");
-		for(int i = 0; i < Params.world_width; i++){
-			System.out.print("-");
-		}
-		System.out.println("+");
-		//middle of box
-		for(int y = 0; y < Params.world_height; y++){
-			System.out.print("|");
-			for(int x = 0; x < Params.world_width; x++){
-				exists = false;
-				for(int i = 0; i < population.size(); i++){
-					if((population.get(i).x_coord == x) && (population.get(i).y_coord == y)){
-						exists = true;
-						loc = i;
-						break;
-					}
-				}
-				if(exists){
-					System.out.print(population.get(loc).toString());
-				}else System.out.print(" ");
-			}
-			System.out.println("|");
-		}
-		//bottom of box
-		System.out.print("+");
-		for(int i = 0; i < Params.world_width; i++){
-			System.out.print("-");
-		}
-		System.out.println("+");
+		new Display();
 	}
 	
 	/**
