@@ -58,7 +58,124 @@ public abstract class Critter {
 		myPackage = Critter.class.getPackage().toString().split(" ")[1];
 	}
 	
-	protected String look(int direction, boolean steps) {return "";}
+	protected String look(int direction, boolean steps) {
+		int tempX = 0, tempY = 0;
+		this.energy -= Params.look_energy_cost;
+		//checks if it commited sudoku looking
+		if (this.energy <=0){
+			population.remove(this);
+		}
+		//get tempX and tempY
+		if(!steps){
+			switch (direction) {
+			case 0:
+				tempX = (this.x_coord + 1) % Params.world_width;
+				break;
+			case 1:
+				tempX = (this.x_coord + 1) % Params.world_width;
+				tempY = this.y_coord - 1;
+				if (tempY < 0) {
+					tempY += Params.world_height;
+				}
+				break;
+			case 2:
+				tempY = this.y_coord - 1;
+				if (tempY < 0) {
+					tempY += Params.world_height;
+				}
+				break;
+			case 3:
+				tempX = this.x_coord - 1;
+				if (tempX < 0) {
+					tempX += Params.world_width;
+				}
+				tempY = this.y_coord - 1;
+				if (tempY < 0) {
+					tempY += Params.world_height;
+				}
+				break;
+			case 4:
+				tempX = this.x_coord - 1;
+				if (tempX < 0) {
+					tempX += Params.world_width;
+				}
+				break;
+			case 5:
+				tempX = this.x_coord - 1;
+				if (tempX < 0) {
+					tempX += Params.world_width;
+				}
+				tempY = (this.y_coord + 1) % Params.world_height;
+				break;
+			case 6:
+				tempY = (this.y_coord + 1) % Params.world_height;
+				break;
+			case 7:
+				tempX = (this.x_coord + 1) % Params.world_width;
+				tempY = (this.y_coord + 1) % Params.world_height;
+				break;
+			}
+		}else{
+			switch (direction) {
+			case 0:
+				tempX = (this.x_coord + 2) % Params.world_width;
+				break;
+			case 1:
+				tempX = (this.x_coord + 2) % Params.world_width;
+				tempY = this.y_coord - 2;
+				if (tempY < 0) {
+					tempY += Params.world_height;
+				}
+				break;
+			case 2:
+				tempY = this.y_coord - 2;
+				if (tempY < 0) {
+					tempY += Params.world_height;
+				}
+				break;
+			case 3:
+				tempX = this.x_coord - 2;
+				if (tempX < 0) {
+					tempX += Params.world_width;
+				}
+				tempY = this.y_coord - 2;
+				if (tempY < 0) {
+					tempY += Params.world_height;
+				}
+				break;
+			case 4:
+				tempX = this.x_coord - 2;
+				if (tempX < 0) {
+					tempX += Params.world_width;
+				}
+				break;
+			case 5:
+				tempX = this.x_coord - 2;
+				if (tempX < 0) {
+					tempX += Params.world_width;
+				}
+				tempY = (this.y_coord + 2) % Params.world_height;
+				break;
+			case 6:
+				tempY = (this.y_coord + 2) % Params.world_height;
+				break;
+			case 7:
+				tempX = (this.x_coord + 2) % Params.world_width;
+				tempY = (this.y_coord + 2) % Params.world_height;
+				break;
+			}
+		}
+		
+		//check if there is a critter at tempX and tempY
+		for(Critter crt : population){
+			if((crt.x_coord == tempX) && (crt.y_coord == tempY)){
+				return crt.toString();
+			}
+		}
+		
+		return null;
+	}
+	
 	private static String myPackage;
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
