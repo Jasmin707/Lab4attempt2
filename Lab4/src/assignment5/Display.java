@@ -21,12 +21,23 @@ public class Display extends Stage{
 	private GridPane grid = new GridPane();
 	
 	Display(){
-		
+		//grid.setGridLinesVisible(true);
         grid.setAlignment(Pos.TOP_LEFT);
         Scene scene = new Scene(grid, (Params.world_width * 15), (Params.world_height * 15));
         this.setTitle("World");
         this.setScene(scene);
         
+        //set world width
+        for(int i = 0; i < Params.world_width; i++){
+        	ColumnConstraints column = new ColumnConstraints(15);
+        	grid.getColumnConstraints().add(column);
+        }
+        
+        //sets world height
+        for(int i = 0; i < Params.world_height; i++){
+        	RowConstraints row = new RowConstraints(15);
+        	grid.getRowConstraints().add(row);
+        }
         this.show();
 	}
 
