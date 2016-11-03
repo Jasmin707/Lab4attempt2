@@ -40,5 +40,11 @@ public class Display extends Stage{
         }
         this.show();
 	}
-
+	
+	/**
+	 * This function paints all the critters to the world.
+	 */
+	public void paint(){
+		grid.getChildren().clear();
+	}
 }
