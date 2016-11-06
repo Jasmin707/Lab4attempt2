@@ -12,6 +12,8 @@
  */
 package assignment5;
 
+import assignment5.Critter.CritterShape;
+
 public class Critter3 extends Critter{
 
 	private int dir;
@@ -69,9 +71,12 @@ public class Critter3 extends Critter{
 	}
 
 	@Override
-	public CritterShape viewShape() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public CritterShape viewShape() { return CritterShape.STAR; }
+
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.GOLDENROD; }
+	
+	@Override
+	public javafx.scene.paint.Color viewFillColor() { return javafx.scene.paint.Color.BLUEVIOLET; }
 
 }

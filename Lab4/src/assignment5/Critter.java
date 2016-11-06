@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -224,6 +225,7 @@ public abstract class Critter {
 	private int y_coord;
 	private boolean hasMoved;
 	private boolean inFight;
+	private static double size = 15;
 	
 	/**
 	 * The critter that calls this function will be moved in the specified direction and will have the appropriate energy subtracted.
@@ -762,7 +764,55 @@ public abstract class Critter {
 	 * Displays the board to the console.
 	 */
 	public static void displayWorld() {
-		new Display(population);
+		try {
+			Display.grid.getChildren().clear();
+			for (Critter crt : population) {
+				addCritter(crt.viewFillColor(), crt.viewOutlineColor(), crt.viewShape(), crt.x_coord, crt.y_coord);
+			}
+			new Display();
+		} catch (Exception e) {
+
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private static void addCritter(javafx.scene.paint.Color fill, javafx.scene.paint.Color outline, CritterShape crtShape, int x, int y){
+		Shape s = null;
+		switch(crtShape.ordinal()) {
+		case 0: s = new Circle((Critter.size)/2); break;
+		case 1: s = new Rectangle(Critter.size, Critter.size); break;
+		case 2: s = new Polygon();
+		((Polygon) s).getPoints().addAll(new Double[]{
+	            (double) (x-(size/2)), (double) (y-(size/2)),
+	            (double) (x-(size/2)), (double) (y+(size/2)),
+	            (double) (x+(size/2)), (double) (y+(size/2)) });
+		break;
+		case 3: s = new Polygon(); 
+		((Polygon) s).getPoints().addAll(new Double[]{
+	            (double) (x-(size/2)), (double) y,
+	            (double) x, (double) (y+(size/2)),
+	            (double) (x+(size/2)), (double) y,
+	            (double) x, (double) (y-(size/2))});
+		break;
+		case 4: s = new Polygon(); 
+		((Polygon) s).getPoints().addAll(new Double[]{
+				(double) (x-(size/6)), (double) (y-(size/6)),
+				(double) (x-(size/2)), (double) (y-(size/6)),
+				(double) (x-(size/4)), (double) (y+(size/6)),
+	            (double) (x-(size/3)), (double) (y+(size/2)),
+	            (double) x, (double) (y+(size/4)),
+	            (double) (x+(size/3)), (double) (y+(size/2)),
+	            (double) (x+(size/4)), (double) (y+(size/6)),
+	            (double) (x+(size/2)), (double) (y-(size/6)),
+	            (double) (x+(size/6)), (double) (y-(size/6)),
+	            (double) x, (double) (y-(size/2))});
+		break;
+		}
+		s.setFill(fill);
+		s.setStroke(outline);
+		Display.grid.add(s, x, y);
 	}
 	
 	/**
