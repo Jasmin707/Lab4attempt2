@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Timer;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 
 
@@ -27,6 +29,9 @@ public class Controller extends Stage {
 	Button goMake = new Button("Make Critter(s)");
 	Button goStats = new Button("Get");
 	Button goSeed = new Button("Set");
+	Button runAnime = new Button("Animate");
+	Button stopAnime = new Button("Pause");
+	boolean executeAnimation = false;
 	
 	Controller(){
 		//making grid
@@ -37,7 +42,7 @@ public class Controller extends Stage {
 	    grid.setPadding(new Insets(25, 25, 25, 25));
 	    
 	    //creating the window
-	    Scene scene = new Scene(grid, 400, 550);
+	    Scene scene = new Scene(grid, 400, 600);
 	    this.setScene(scene);
 	    this.setTitle("Controller");
 	    
@@ -89,11 +94,15 @@ public class Controller extends Stage {
 	    grid.add(seedInput, 1, 16);
 	    grid.add(goSeed, 2, 16);
 	    
+	    //animation label
+	    Label animeLabel = new Label("Animation");
+	    grid.add(animeLabel, 0, 19);
+	    
 	    //quit button
-	    grid.add(quit, 2, 18);
+	    grid.add(quit, 2, 20);
 	    
 	    //display button
-	    grid.add(display, 0, 18);
+	    grid.add(display, 0, 17);
 	    
 	    //step error text
 	    final Text stepError = new Text();
@@ -111,6 +120,43 @@ public class Controller extends Stage {
 	    final Text seedError = new Text();
 	    grid.add(seedError, 1, 17);
 	    
+	    //animation slider
+	    Slider anime = new Slider(1, 10, 1);
+	    anime.setShowTickMarks(true);
+	    anime.setShowTickLabels(true);
+	    anime.setSnapToTicks(true);
+	    anime.setMajorTickUnit(1);
+	    grid.add(anime, 0, 20);
+	    
+	    //buttons for animations
+	    grid.add(runAnime, 1, 19);
+	    grid.add(stopAnime, 1, 20);
+	    
+	    
+	    //button starts actions for anime
+	    runAnime.setOnAction(new EventHandler<ActionEvent>() {
+	        @Override
+	        public void handle(ActionEvent t) {
+	        	executeAnimation = true;
+	        	Timer pace = new Timer();
+	        	while(executeAnimation){
+	        		try{
+	        			pace.wait(1000/(long)anime.getValue());
+	        		}catch (Exception e){
+	        			
+	        		}
+	        		Display.paint();
+	        	}
+	        }
+	    });
+	    
+	    //button that sends action
+	    stopAnime.setOnAction(new EventHandler<ActionEvent>() {
+	        @Override
+	        public void handle(ActionEvent t) {
+	        	executeAnimation = false;
+	        }
+	    });
 	    
 	    //step button
 	    step.setOnAction(new EventHandler<ActionEvent>() {

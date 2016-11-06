@@ -3,6 +3,7 @@ package assignment5;
 import javafx.geometry.Insets;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.event.ActionEvent;
@@ -18,9 +19,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Display extends Stage{
-	private GridPane grid = new GridPane();
+	private static GridPane grid = new GridPane();
+	private static List<Critter> pop;
 	
-	Display(){
+	Display(List<Critter> pop){
+		this.pop = pop;
 		//grid.setGridLinesVisible(true);
         grid.setAlignment(Pos.TOP_LEFT);
         Scene scene = new Scene(grid, (Params.world_width * 15), (Params.world_height * 15));
@@ -44,7 +47,10 @@ public class Display extends Stage{
 	/**
 	 * This function paints all the critters to the world.
 	 */
-	public void paint(){
+	public static void paint(){
 		grid.getChildren().clear();
+		for(Critter crt : pop){
+			//grid.add(crt.viewShape(), crt.getX_coord(), crt.getY_coord());
+		}
 	}
 }

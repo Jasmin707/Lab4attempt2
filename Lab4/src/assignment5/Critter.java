@@ -762,7 +762,7 @@ public abstract class Critter {
 	 * Displays the board to the console.
 	 */
 	public static void displayWorld() {
-		new Display();
+		new Display(population);
 	}
 	
 	/**
