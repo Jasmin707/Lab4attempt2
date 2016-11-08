@@ -254,7 +254,11 @@ public class Controller extends Stage {
 						statError.setFill(Color.FIREBRICK);
 		        		statError.setText("Invalid Input");
 					}
+					try{
 					new StatsWindow(out);
+					}catch(Exception e){
+						
+					}
 	        	}
 	    });
 	    

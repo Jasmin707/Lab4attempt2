@@ -19,7 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class StatsWindow extends Stage{
-	public static GridPane grid = new GridPane();
+	public GridPane grid = new GridPane();
 	
 	StatsWindow(String out){
 		//grid.setGridLinesVisible(true);
@@ -27,6 +27,9 @@ public class StatsWindow extends Stage{
         Scene scene = new Scene(grid, 400, 200);
         this.setTitle("Stats");
         this.setScene(scene);
+        
+        this.grid.getChildren().clear();
+        
         Label stats = new Label(out);
 	    grid.add(stats, 0, 0);
         

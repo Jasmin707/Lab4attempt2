@@ -168,9 +168,17 @@ public abstract class Critter {
 		}
 		
 		//check if there is a critter at tempX and tempY
-		for(Critter crt : population){
-			if((crt.x_coord == tempX) && (crt.y_coord == tempY)){
-				return crt.toString();
+		if (this.inFight){
+			for(Critter crt : population){
+				if((crt.x_coord == tempX) && (crt.y_coord == tempY)){
+					return crt.toString();
+				}
+			}
+		} else {
+			for (OldCoord cur : oldCoords) {
+				if ((cur.getOldX() == tempX) && (cur.getOldY() == tempY)) {
+					return cur.getCrt().toString();
+				}
 			}
 		}
 		
@@ -687,10 +695,17 @@ public abstract class Critter {
 	}
 	
 	
+	private static ArrayList<OldCoord> oldCoords = new ArrayList<OldCoord>();
+	
 	/**
 	 * The function that does a world time step for the critter.
 	 */
 	public static void worldTimeStep(){
+		
+		for(Critter crit : population){
+			OldCoord cur = new OldCoord(crit.x_coord, crit.y_coord, crit);
+			oldCoords.add(cur);
+		}
 		
 		for(Iterator<Critter> iterator = population.iterator(); iterator.hasNext();){
 			Critter crt = iterator.next();
