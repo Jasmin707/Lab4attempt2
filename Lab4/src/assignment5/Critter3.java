@@ -41,8 +41,17 @@ public class Critter3 extends Critter{
 			 reproduce(child, Critter.getRandomInt(8));
 		 }
 		 else{
-			 walk((dir + 1) % 8);
-		 }
+			int direction = Critter.getRandomInt(8);
+			if (this.look(direction, false) != null) {
+				if (this.look(direction, false).equals("@")) {
+					walk(direction);
+				} else if (this.look(direction, false).equals("1")) {
+					walk((direction + 4) % 8);
+				}
+			}else {
+				walk(direction);
+			}
+		}
 		
 	}
 
@@ -67,8 +76,8 @@ public class Critter3 extends Critter{
 	 */
 	public static String runStats(java.util.List<Critter> critter3s) {
 		String out = new String();
-		System.out.print("" + critter3s.size() + " total Jasmins    ");
-		System.out.println("Total reproductions: " + babyCounter);
+		out = "" + critter3s.size() + " total Jasmins    \n" +
+		"Total reproductions: " + babyCounter;
 		return out;
 	}
 

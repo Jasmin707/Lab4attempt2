@@ -98,8 +98,8 @@ public class Critter4 extends Critter{
 	 */
 	public static String runStats(java.util.List<Critter> critter4s) {
 		String out = new String();
-		System.out.print("" + critter4s.size() + " total Critter4s    ");
-		System.out.println("Total reproductions: " + babyCounter);
+		out = "" + critter4s.size() + " total Critter4s   " + "\n" +
+		"Total reproductions: " + babyCounter;
 		return out;
 	}
 
@@ -110,6 +110,6 @@ public class Critter4 extends Critter{
 	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.GOLDENROD; }
 	
 	@Override
-	public javafx.scene.paint.Color viewFillColor() { return javafx.scene.paint.Color.DARKOLIVEGREEN; }
+	public javafx.scene.paint.Color viewFillColor() { return javafx.scene.paint.Color.SILVER; }
 
 }
