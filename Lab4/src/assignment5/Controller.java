@@ -29,9 +29,9 @@ public class Controller extends Stage {
 	Button goMake = new Button("Make Critter(s)");
 	Button goStats = new Button("Get");
 	Button goSeed = new Button("Set");
-	Button runAnime = new Button("Animate");
-	Button stopAnime = new Button("Pause");
-	boolean executeAnimation = false;
+	//Button runAnime = new Button("Animate");
+	//Button stopAnime = new Button("Pause");
+	//boolean executeAnimation = false;
 	
 	Controller(){
 		//making grid
@@ -42,7 +42,7 @@ public class Controller extends Stage {
 	    grid.setPadding(new Insets(25, 25, 25, 25));
 	    
 	    //creating the window
-	    Scene scene = new Scene(grid, 400, 600);
+	    Scene scene = new Scene(grid, 360, 525);
 	    this.setScene(scene);
 	    this.setTitle("Controller");
 	    
@@ -94,12 +94,12 @@ public class Controller extends Stage {
 	    grid.add(seedInput, 1, 16);
 	    grid.add(goSeed, 2, 16);
 	    
-	    //animation label
-	    Label animeLabel = new Label("Animation");
-	    grid.add(animeLabel, 0, 19);
+//	    //animation label
+//	    Label animeLabel = new Label("Animation");
+//	    grid.add(animeLabel, 0, 19);
 	    
 	    //quit button
-	    grid.add(quit, 2, 20);
+	    grid.add(quit, 2, 17);
 	    
 	    //display button
 	    grid.add(display, 0, 17);
@@ -119,45 +119,45 @@ public class Controller extends Stage {
 	    //seed error text
 	    final Text seedError = new Text();
 	    grid.add(seedError, 1, 17);
-	    
-	    //animation slider
-	    Slider anime = new Slider(1, 10, 1);
-	    anime.setShowTickMarks(true);
-	    anime.setShowTickLabels(true);
-	    anime.setSnapToTicks(true);
-	    anime.setMajorTickUnit(1);
-	    grid.add(anime, 0, 20);
-	    
-	    //buttons for animations
-	    grid.add(runAnime, 1, 19);
-	    grid.add(stopAnime, 1, 20);
-	    
-	    
-	    //button starts actions for anime
-	    runAnime.setOnAction(new EventHandler<ActionEvent>() {
-	        @Override
-	        public void handle(ActionEvent t) {
-	        	executeAnimation = true;
-	        	Timer pace = new Timer();
-	        	while(executeAnimation){
-	        		try{
-	        			pace.wait(1000/(long)anime.getValue());
-	        		}catch (Exception e){
-	        			
-	        		}
-	        		Display.paint();
-	        	}
-	        }
-	    });
-	    
-	    //button that sends action
-	    stopAnime.setOnAction(new EventHandler<ActionEvent>() {
-	        @Override
-	        public void handle(ActionEvent t) {
-	        	executeAnimation = false;
-	        }
-	    });
-	    
+//	    
+//	    //animation slider
+//	    Slider anime = new Slider(1, 10, 1);
+//	    anime.setShowTickMarks(true);
+//	    anime.setShowTickLabels(true);
+//	    anime.setSnapToTicks(true);
+//	    anime.setMajorTickUnit(1);
+//	    grid.add(anime, 0, 20);
+//	    
+//	    //buttons for animations
+//	    grid.add(runAnime, 1, 19);
+//	    grid.add(stopAnime, 1, 20);
+//	    
+//	    
+//	    //button starts actions for anime
+//	    runAnime.setOnAction(new EventHandler<ActionEvent>() {
+//	        @Override
+//	        public void handle(ActionEvent t) {
+//	        	executeAnimation = true;
+//	        	Timer pace = new Timer();
+//	        	while(executeAnimation){
+//	        		try{
+//	        			pace.wait(1000/(long)anime.getValue());
+//	        		}catch (Exception e){
+//	        			
+//	        		}
+//	        		Display.paint();
+//	        	}
+//	        }
+//	    });
+//	    
+//	    //button that sends action
+//	    stopAnime.setOnAction(new EventHandler<ActionEvent>() {
+//	        @Override
+//	        public void handle(ActionEvent t) {
+//	        	executeAnimation = false;
+//	        }
+//	    });
+//	    
 	    //step button
 	    step.setOnAction(new EventHandler<ActionEvent>() {
 	        @Override
