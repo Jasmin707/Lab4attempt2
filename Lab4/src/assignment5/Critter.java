@@ -615,7 +615,6 @@ public abstract class Critter {
 	 * @param critters List of Critters.
 	 */
 	public static String runStats(List<Critter> critters) {
-		System.out.print("" + critters.size() + " critters as follows -- ");
 		java.util.Map<String, Integer> critter_count = new java.util.HashMap<String, Integer>();
 		for (Critter crit : critters) {
 			String crit_string = crit.toString();
@@ -626,13 +625,14 @@ public abstract class Critter {
 				critter_count.put(crit_string, old_count.intValue() + 1);
 			}
 		}
+		String out = new String();
+		out = "" + critters.size() + " critters as follows -- \n";
 		String prefix = "";
 		for (String s : critter_count.keySet()) {
-			System.out.print(prefix + s + ":" + critter_count.get(s));
+			out += prefix + s + ":" + critter_count.get(s) + "\n";
 			prefix = ", ";
 		}
-		System.out.println();	
-		return null;
+		return out;
 	}
 	
 	/* the TestCritter class allows some critters to "cheat". If you want to 
@@ -852,5 +852,9 @@ public abstract class Critter {
 			}
 		}
 		return encounters;
+	}
+
+	public static String runStats() {
+		return Critter.runStats(population);
 	}
 }

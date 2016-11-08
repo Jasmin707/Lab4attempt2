@@ -46,7 +46,7 @@ public class Critter2 extends Critter {
 			fightsWon++;
 		}
 		dir = Critter.getRandomInt(8);
-		if(this.look(dir, true) != "1"){
+		if((this.look(dir, true) != "1") && (this.look(dir, true) != null)){
 			this.run(dir);
 		}
 		moveCounter = (moveCounter++) % 3;
