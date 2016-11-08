@@ -46,7 +46,9 @@ public class Critter2 extends Critter {
 			fightsWon++;
 		}
 		dir = Critter.getRandomInt(8);
-		this.run(dir);
+		if(this.look(dir, true) != "1"){
+			this.run(dir);
+		}
 		moveCounter = (moveCounter++) % 3;
 		timesMoved++;
 		if( moveCounter == 2){
@@ -79,10 +81,10 @@ public class Critter2 extends Critter {
 	 */
 	public static String runStats(java.util.List<Critter> pikachus){
 			String out = new String();
-			System.out.println("Stats for " + pikachus.size() + " Critter2s: ");
-			System.out.println("Total Fights Won: " + fightsWon );
-			System.out.println("Total Times Moved: " + timesMoved );
-			System.out.println("Total Babies Hatched: " + pikachusHatched );
+			out = "Stats for " + pikachus.size() + " Critter2s:\n" +
+					"Total Fights Won: " + fightsWon + "\n" + 
+					"Total Times Moved: " + timesMoved + "\n" +
+					"Total Babies Hatched: " + pikachusHatched + "\n";
 			return out;
 	}
 
