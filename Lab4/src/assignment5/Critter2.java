@@ -12,6 +12,8 @@
  */
 package assignment5;
 
+import assignment5.Critter.CritterShape;
+
 /**
  * Critter2 is Pikachu.
  * It alwaus runs in a random direction and reproduces every 3 turns. Fights all critters but Snorlax.
@@ -75,17 +77,22 @@ public class Critter2 extends Critter {
 	 * 
 	 * @param pikachus The list of Pikachus that are going to be printed.
 	 */
-	public static void runStats(java.util.List<Critter> pikachus){
+	public static String runStats(java.util.List<Critter> pikachus){
+			String out = new String();
 			System.out.println("Stats for " + pikachus.size() + " Critter2s: ");
 			System.out.println("Total Fights Won: " + fightsWon );
 			System.out.println("Total Times Moved: " + timesMoved );
 			System.out.println("Total Babies Hatched: " + pikachusHatched );
-		
+			return out;
 	}
 
+
 	@Override
-	public CritterShape viewShape() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public CritterShape viewShape() { return CritterShape.TRIANGLE; }
+
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.YELLOW; }
+	
+	@Override
+	public javafx.scene.paint.Color viewFillColor() { return javafx.scene.paint.Color.BLACK; }
 }

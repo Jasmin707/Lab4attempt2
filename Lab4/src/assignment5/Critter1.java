@@ -12,6 +12,8 @@
  */
 package assignment5;
 
+import assignment5.Critter.CritterShape;
+
 /**
  * Critter1 is Snorlax.
  * It moves every 5 turns, and doesn't reproduce.
@@ -67,15 +69,19 @@ public class Critter1 extends Critter {
 	 * 
 	 * @param snorlaxes The list of Snorlaxes that are going to be printed.
 	 */
-	public static void runStats(java.util.List<Critter> snorlaxes){
-			System.out.println("Stats for " + snorlaxes.size() + " Critter1:");
-			System.out.println("Total Fights Won: " + fightsWon );
-			System.out.println("Total Times Moved: " + timesMoved );
+	public static String runStats(java.util.List<Critter> snorlaxes){
+			String out = new String();
+			out = "Stats for " + snorlaxes.size() + " Critter1:\n" +
+						"Total Fights Won: " + fightsWon + "\n" +
+						"Total Times Moved: " + timesMoved  + "\n";
+			return out;
 	}
 
+
 	@Override
-	public CritterShape viewShape() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public CritterShape viewShape() { return CritterShape.CIRCLE; }
+
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUE; }
+	
 }

@@ -243,16 +243,18 @@ public class Controller extends Stage {
 	        	statError.setText("");
 	        	String critName = statInput.getText();
 	        	List<Critter> crtStats; 
+	        	String out = new String();
 				Class<?> critClass;
 					try {
 						crtStats = Critter.getInstances(critName);
 						critClass = Class.forName("assignment5." + critName);
 						Method runStats = critClass.getMethod("runStats", List.class);
-	    				runStats.invoke(null, crtStats);
+	    				out = (String)runStats.invoke(null, crtStats);
 					} catch (Exception e) {
 						statError.setFill(Color.FIREBRICK);
 		        		statError.setText("Invalid Input");
 					}
+					new StatsWindow(out);
 	        	}
 	    });
 	    

@@ -96,9 +96,11 @@ public class Critter4 extends Critter{
 	 * 
 	 * @param critter4s is the list of all living Critter4s
 	 */
-	public static void runStats(java.util.List<Critter> critter4s) {
+	public static String runStats(java.util.List<Critter> critter4s) {
+		String out = new String();
 		System.out.print("" + critter4s.size() + " total Critter4s    ");
 		System.out.println("Total reproductions: " + babyCounter);
+		return out;
 	}
 
 	@Override
