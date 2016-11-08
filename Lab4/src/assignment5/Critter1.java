@@ -71,7 +71,7 @@ public class Critter1 extends Critter {
 	 */
 	public static String runStats(java.util.List<Critter> snorlaxes){
 			String out = new String();
-			out = "Stats for " + snorlaxes.size() + " Critter1:\n" +
+			out = "Stats for " + snorlaxes.size() + " Critter1s:\n" +
 						"Total Fights Won: " + fightsWon + "\n" +
 						"Total Times Moved: " + timesMoved  + "\n";
 			return out;

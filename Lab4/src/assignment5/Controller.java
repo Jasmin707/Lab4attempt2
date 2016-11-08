@@ -245,19 +245,20 @@ public class Controller extends Stage {
 	        	List<Critter> crtStats; 
 	        	String out = new String();
 				Class<?> critClass;
-					try {
-						crtStats = Critter.getInstances(critName);
-						critClass = Class.forName("assignment5." + critName);
-						Method runStats = critClass.getMethod("runStats", List.class);
-	    				out = (String)runStats.invoke(null, crtStats);
-					} catch (Exception e) {
-						statError.setFill(Color.FIREBRICK);
-		        		statError.setText("Invalid Input");
-					}
-					try{
-					new StatsWindow(out);
-					}catch(Exception e){
-						
+					if(critName.equals("Critter")){
+						out = Critter.runStats();
+						new StatsWindow(out);
+					}else{
+						try {
+							crtStats = Critter.getInstances(critName);
+							critClass = Class.forName("assignment5." + critName);
+							Method runStats = critClass.getMethod("runStats", List.class);
+		    				out = (String)runStats.invoke(null, crtStats);
+							new StatsWindow(out);
+						} catch (Exception e) {
+							statError.setFill(Color.FIREBRICK);
+			        		statError.setText("Invalid Input");
+						}
 					}
 	        	}
 	    });
