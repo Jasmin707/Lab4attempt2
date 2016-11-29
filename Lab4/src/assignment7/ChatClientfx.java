@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -37,12 +38,53 @@ public class ChatClientfx extends Stage{
 	private TextField outgoing = new TextField();
 	private TextArea incoming = new TextArea();
 	private Button send = new Button("Send");
+	private String id;
 	
 	public void run() throws Exception {
 		initView();
 		setUpNetworking();
+		getId();
 	}
 	
+	class UsernamePrompt extends Stage{
+		UsernamePrompt(){
+		GridPane idWindow = new GridPane();
+		idWindow.setAlignment(Pos.TOP_LEFT);
+		idWindow.setHgap(10);
+		idWindow.setVgap(10);
+		idWindow.setPadding(new Insets(25, 25, 25, 25));
+		
+		//making scene
+		Scene scene = new Scene(idWindow, 300, 100);
+	    this.setScene(scene);
+	    this.setTitle("Enter an ID");
+	    
+	    Label username = new Label("Username:");
+	    idWindow.add(username, 0, 0);
+	    TextField usernameInput = new TextField();
+	    idWindow.add(usernameInput, 1, 0);
+	    
+	    //making button
+		Button enter = new Button("Enter");
+		idWindow.add(enter, 0, 1);
+		
+		enter.setOnAction(new EventHandler<ActionEvent>() {
+	        @Override
+	        public void handle(ActionEvent t) {
+	        	id = usernameInput.getText();
+	        	close();
+	        }
+	    });
+		
+		this.show();
+		}
+		
+	}
+	
+	private void getId() {
+		new UsernamePrompt();
+	}
+
 	private void initView(){
 		//making grid
 	    GridPane grid = new GridPane();
@@ -107,5 +149,4 @@ public class ChatClientfx extends Stage{
 			}
 		}
 	}
-
 }

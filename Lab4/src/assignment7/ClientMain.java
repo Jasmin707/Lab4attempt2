@@ -13,6 +13,7 @@ public class ClientMain extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
+			
 			new ChatClientfx().run();
 		} catch (Exception e) {
 			e.printStackTrace();
