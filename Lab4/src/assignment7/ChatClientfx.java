@@ -42,9 +42,11 @@ public class ChatClientfx extends Stage{
 	
 	public void run() throws Exception {
 		initView();
-		setUpNetworking();
 		getId();
+		setUpNetworking();
 	}
+	
+	
 	
 	class UsernamePrompt extends Stage{
 		UsernamePrompt(){
@@ -72,6 +74,8 @@ public class ChatClientfx extends Stage{
 	        @Override
 	        public void handle(ActionEvent t) {
 	        	id = usernameInput.getText();
+	        	writer.println(id);
+				writer.flush();
 	        	close();
 	        }
 	    });
@@ -94,7 +98,7 @@ public class ChatClientfx extends Stage{
 	    grid.setPadding(new Insets(25, 25, 25, 25));
 	    
 	    //creating the window
-	    Scene scene = new Scene(grid, 400, 300);
+	    Scene scene = new Scene(grid, 400, 325);
 	    this.setScene(scene);
 	    this.setTitle("E&J Instant Messager");
 	    
@@ -106,7 +110,7 @@ public class ChatClientfx extends Stage{
 	    grid.add(outgoing, 0, 2);
 	    
 	    //send button
-	    grid.add(send, 1, 2);
+	    grid.add(send, 0, 3);
 	    
 	    send.setOnAction(new EventHandler<ActionEvent>() {
 	        @Override
@@ -141,7 +145,6 @@ public class ChatClientfx extends Stage{
 			String message;
 			try {
 				while ((message = reader.readLine()) != null) {
-					
 						incoming.appendText(message + "\n");
 				}
 			} catch (IOException ex) {
