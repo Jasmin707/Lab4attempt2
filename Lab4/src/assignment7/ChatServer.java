@@ -34,6 +34,7 @@ public class ChatServer extends Observable {
 	
 
 	HashMap<BufferedReader, UserData> users = new HashMap<BufferedReader, UserData>();
+	Object lock = new Object();
 	
 	class ClientHandler implements Runnable {
 		private BufferedReader reader;
@@ -68,34 +69,36 @@ public class ChatServer extends Observable {
 							}
 						}
 						String fromUser = users.get(reader).getUsername();
-						if(isPM){
-							ArrayList<ClientObserver> notCorrectUserList = new ArrayList<ClientObserver>();
-							ArrayList<ClientObserver> isCorrectUserList = new ArrayList<ClientObserver>();
-							//adds sender to userlist
-							isCorrectUserList.add(users.get(reader).getObserver());
-							for(BufferedReader cur : users.keySet()){
-								if(users.get(cur).getUsername().equals(temp[0])){
-									//adds the receiver to userlist
-									isCorrectUserList.add(users.get(cur).getObserver());
-								}else{
-									notCorrectUserList.add(users.get(cur).getObserver());
+						synchronized(lock){
+							if(isPM){
+								ArrayList<ClientObserver> notCorrectUserList = new ArrayList<ClientObserver>();
+								ArrayList<ClientObserver> isCorrectUserList = new ArrayList<ClientObserver>();
+								//adds sender to userlist
+								isCorrectUserList.add(users.get(reader).getObserver());
+								for(BufferedReader cur : users.keySet()){
+									if(users.get(cur).getUsername().equals(temp[0])){
+										//adds the receiver to userlist
+										isCorrectUserList.add(users.get(cur).getObserver());
+									}else{
+										notCorrectUserList.add(users.get(cur).getObserver());
+									}
+								}
+								String newMessage = "";
+								for (int i = 1; i < temp.length; i ++){
+									newMessage += temp[i];
+								}
+								deleteObservers();
+								for(ClientObserver cur : isCorrectUserList){
+									addObserver(cur);
+								}
+								notifyObservers("(DM) " + fromUser + ": " + newMessage);
+								for(ClientObserver cur : notCorrectUserList){
+									addObserver(cur);
 								}
 							}
-							String newMessage = "";
-							for (int i = 1; i < temp.length; i ++){
-								newMessage += temp[i];
+							else{
+								notifyObservers(fromUser + ": " + message);
 							}
-							deleteObservers();
-							for(ClientObserver cur : isCorrectUserList){
-								addObserver(cur);
-							}
-							notifyObservers("(DM) " + fromUser + ": " + newMessage);
-							for(ClientObserver cur : notCorrectUserList){
-								addObserver(cur);
-							}
-						}
-						else{
-							notifyObservers(fromUser + ": " + message);
 						}
 					}
 				}
